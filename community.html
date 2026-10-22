@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Community — Profeshare AI</title>
+<style>
+:root{--bg:#0f0f0f;--fg:#fff3f0;--muted:#a59f9d;--muted2:#756f6c;--line:rgba(255,255,255,.12);--ease:cubic-bezier(.2,0,0,1);font-family:Inter,system-ui,sans-serif}*{box-sizing:border-box}html{color-scheme:dark}body{margin:0;min-width:320px;height:100vh;background:radial-gradient(circle at 75% -10%,rgba(255,243,240,.07),transparent 34%),var(--bg);color:var(--fg);font:14px/1.5 Inter,system-ui,sans-serif}button,input,textarea{font:inherit;color:inherit}button{border:0;cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--fg);outline-offset:2px}.shell{height:100vh;display:grid;grid-template-rows:58px 1fr;overflow:hidden}.topbar{display:flex;align-items:center;gap:18px;padding:0 22px;border-bottom:1px solid var(--line);background:rgba(15,15,15,.78);backdrop-filter:blur(22px);z-index:3}.brand{display:flex;align-items:center;gap:9px;font-weight:600;min-width:178px}.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--fg);box-shadow:0 0 14px rgba(255,243,240,.35)}.search{flex:1;max-width:680px;margin:auto;position:relative}.search input{width:100%;height:36px;padding:0 40px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035)}.search svg{position:absolute;left:13px;top:10px;width:16px;color:var(--muted)}.top-actions{display:flex;gap:4px;margin-left:auto}.icon-btn,.small-btn{display:grid;place-items:center;border-radius:10px;background:transparent;color:var(--muted);transition:.15s var(--ease)}.icon-btn{width:36px;height:36px}.icon-btn:hover,.small-btn:hover{background:rgba(255,255,255,.08);color:var(--fg)}.page{min-height:0;display:flex;flex-direction:column;padding:20px 24px 24px}.crumbs{display:flex;align-items:center;gap:7px;color:var(--muted2);font-size:12px;margin-bottom:13px}.crumbs strong{color:var(--fg)}.crumbs svg{width:13px}.title{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px}.title h1{margin:0;font-size:26px;letter-spacing:-.04em}.title p{margin:5px 0 0;color:var(--muted);font-size:13px}.title small{color:var(--muted2)}.workspace{flex:1;min-height:0;display:grid;grid-template-columns:250px minmax(0,1fr);gap:14px}.rail,.conversation{min-width:0;min-height:0;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(11,15,21,.7);backdrop-filter:blur(24px);box-shadow:0 18px 42px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08)}.rail{padding:14px 11px;overflow:auto}.workspace-name{display:flex;align-items:center;gap:9px;padding:2px 8px 14px;font-weight:600}.workspace-mark,.avatar{display:grid;place-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)}.workspace-mark{width:28px;height:28px;border-radius:9px;background:rgba(255,243,240,.14);font-size:12px}.workspace-name button{margin-left:auto;background:transparent;color:var(--muted)}.rail-search{width:100%;height:34px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.045);outline:0}.rail-search::placeholder{color:var(--muted2)}.rail-search:focus{border-color:rgba(255,255,255,.3)}.rail-nav{display:grid;gap:2px;margin:13px 0 16px}.rail-nav button,.channel,.person{display:flex;align-items:center;gap:9px;width:100%;padding:8px 9px;border-radius:9px;background:transparent;color:var(--muted);text-align:left;font-size:12px}.rail-nav button:hover,.channel:hover,.person:hover,.channel.active,.person.active{background:rgba(255,255,255,.08);color:var(--fg)}.label{display:flex;align-items:center;padding:10px 9px 5px;color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.09em;font-weight:600}.label button{margin-left:auto;background:transparent;color:var(--muted);font-size:16px}.channel.active,.person.active{background:rgba(255,243,240,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}.channel-icon{width:16px;text-align:center;color:var(--muted2)}.badge{margin-left:auto;padding:2px 6px;border-radius:99px;background:rgba(255,255,255,.1);font-size:10px}.person-status{width:7px;height:7px;margin-left:auto;border-radius:50%}.avatar{width:30px;height:30px;border-radius:9px;flex:none;font-size:11px;font-weight:700}.avatar.small{width:23px;height:23px;border-radius:7px;font-size:9px}.blue{background:rgba(94,156,255,.28)}.green{background:rgba(78,190,144,.25)}.rose{background:rgba(226,120,140,.28)}.amber{background:rgba(224,166,83,.26)}.violet{background:rgba(150,123,226,.28)}.conversation{display:flex;flex-direction:column;overflow:hidden;position:relative}.channel-head{display:flex;align-items:center;gap:10px;min-height:68px;padding:0 17px;border-bottom:1px solid rgba(255,255,255,.1)}.channel-title{min-width:0}.channel-title h2{margin:0;font-size:16px;letter-spacing:-.02em}.channel-title p{margin:2px 0 0;color:var(--muted2);font-size:11px}.channel-actions{display:flex;align-items:center;gap:4px;margin-left:auto}.member-btn{padding:6px 9px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.045);color:var(--muted);font-size:11px}.member-btn:hover{background:rgba(255,255,255,.09);color:var(--fg)}.small-btn{width:32px;height:32px}.tabs{display:flex;gap:6px;padding:8px 15px;border-bottom:1px solid rgba(255,255,255,.08);overflow:auto}.tabs button{padding:6px 9px;border-radius:8px;background:transparent;color:var(--muted);font-size:11px;white-space:nowrap}.tabs button:hover,.tabs button.active{background:rgba(255,255,255,.08);color:var(--fg)}.messages{flex:1;overflow:auto;padding:5px 18px}.date{display:flex;align-items:center;gap:9px;margin:17px 0 10px;color:var(--muted2);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.date:before,.date:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.08)}.message{display:flex;gap:10px;padding:10px 4px;border-radius:10px}.message:hover{background:rgba(255,255,255,.045)}.message-body{min-width:0;flex:1}.meta{display:flex;gap:8px;align-items:baseline}.meta strong{font-size:13px}.meta time{font-size:10px;color:var(--muted2)}.message p{margin:4px 0 0;color:#d1cbca;font-size:13px;line-height:1.55}.link{color:#83c8ff}.mention{padding:1px 4px;border-radius:4px;background:rgba(242,189,114,.16);color:#f4c778}.tools{display:flex;gap:6px;margin-top:7px}.reaction,.thread{padding:4px 7px;border:1px solid var(--line);border-radius:7px;background:rgba(255,255,255,.045);color:var(--muted);font-size:10px}.reaction:hover,.thread:hover{background:rgba(255,255,255,.09);color:var(--fg)}.composer{margin:12px 16px 16px;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(17,21,27,.78);box-shadow:0 16px 34px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07);overflow:hidden}.composer-tools{display:flex;gap:3px;padding:7px 9px;border-bottom:1px solid rgba(255,255,255,.08)}.composer-tools button{width:27px;height:27px;border-radius:7px;background:transparent;color:var(--muted)}.composer-tools button:hover{background:rgba(255,255,255,.08);color:var(--fg)}.composer textarea{display:block;width:100%;min-height:52px;resize:none;border:0;outline:0;background:transparent;padding:11px 12px;font-size:13px}.composer textarea::placeholder{color:var(--muted2)}.composer-bottom{display:flex;align-items:center;padding:6px 9px}.composer-bottom span{color:var(--muted2);font-size:10px}.send{margin-left:auto;width:29px;height:29px;border-radius:8px;background:rgba(255,243,240,.18);color:var(--fg);opacity:.45}.send.ready{opacity:1;background:var(--fg);color:#171717}.members{position:absolute;top:61px;right:14px;z-index:4;width:238px;padding:12px;border:1px solid rgba(255,255,255,.16);border-radius:14px;background:rgba(12,16,22,.94);backdrop-filter:blur(24px);box-shadow:0 18px 42px rgba(0,0,0,.38)}.members strong{display:block;margin-bottom:8px;font-size:12px}.member-row{display:flex;align-items:center;gap:8px;padding:7px 0;color:var(--muted);font-size:11px}.member-row span:last-child{margin-left:auto;color:var(--muted2)}.empty{display:grid;place-items:center;height:100%;min-height:280px;text-align:center;color:var(--muted)}.empty strong{display:block;color:var(--fg);margin-bottom:4px}.empty span{font-size:12px}@media(max-width:820px){.page{padding:16px}.workspace{grid-template-columns:1fr}.rail{max-height:250px}.conversation{min-height:560px}.brand{min-width:auto}.brand span:last-child{display:none}.topbar{padding:0 16px}.channel-actions .small-btn:nth-last-child(-n+2){display:none}}
+:where(input,select,textarea):focus,
+:where(input,select,textarea):focus-visible{outline:none!important;border-color:inherit!important;box-shadow:none!important}
+</style>
+<style>
+/* Community refinement layer */
+.page{padding:16px}
+.workspace{height:100%;gap:16px;align-items:stretch}
+.rail,.conversation{height:100%}
+.community-refine .rail,.community-refine .conversation{background:rgba(7,12,20,.54);border-color:rgba(255,255,255,.14);box-shadow:0 22px 60px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.09)}
+.community-refine .rail{padding:16px 12px}.community-refine .workspace-name{padding-bottom:16px}.community-refine .workspace-name button,.community-refine .label button{width:28px;height:28px;border-radius:8px}.community-refine .workspace-name button:hover,.community-refine .label button:hover{background:rgba(255,255,255,.085);color:var(--fg)}
+.rail-switcher{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:12px 0;padding:3px;border:1px solid rgba(255,255,255,.08);border-radius:10px;background:rgba(0,0,0,.14)}.rail-switcher button{padding:6px 3px;border-radius:7px;background:transparent;color:var(--muted2);font-size:10px}.rail-switcher button:hover,.rail-switcher button.active{background:rgba(255,255,255,.085);color:var(--fg)}
+.rail-actions{display:flex;gap:6px;margin:11px 0 6px}.rail-action{flex:1;padding:7px 6px;border:1px solid rgba(255,255,255,.1);border-radius:9px;background:rgba(255,255,255,.055);color:var(--muted);font-size:10px}.rail-action:hover{background:rgba(255,255,255,.11);color:var(--fg);border-color:rgba(255,255,255,.2)}
+.community-refine .channel,.community-refine .person{min-height:36px}.community-refine .channel.active,.community-refine .person.active{background:rgba(255,243,240,.10);border:1px solid rgba(255,255,255,.1)}.channel-unread{width:5px;height:5px;border-radius:50%;background:#f2bd72;box-shadow:0 0 10px rgba(242,189,114,.55)}
+.community-refine .channel-head{min-height:74px;background:rgba(255,255,255,.018)}.community-refine .channel-title h2{font-size:17px}.member-btn{display:flex;align-items:center;gap:6px}
+.message{position:relative;padding:12px 7px;transition:background .15s var(--ease)}.message:hover{background:rgba(255,255,255,.06)}.message-actions{display:flex;gap:2px;position:absolute;right:8px;top:7px;opacity:0;transform:translateY(3px);transition:.15s var(--ease)}.message:hover .message-actions,.message:focus-within .message-actions{opacity:1;transform:none}.message-actions button{width:26px;height:26px;border:1px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(18,22,28,.88);color:var(--muted);font-size:12px}.message-actions button:hover{color:var(--fg);background:rgba(255,255,255,.12)}
+.community-refine .composer{background:rgba(7,12,20,.56);border-color:rgba(255,255,255,.18)}
+.thread-panel{position:absolute;inset:0 0 0 auto;z-index:5;width:min(360px,92%);display:flex;flex-direction:column;background:rgba(17,21,28,.97);border-left:1px solid rgba(255,255,255,.16);box-shadow:-18px 0 45px rgba(0,0,0,.28);transform:translateX(102%);transition:transform .22s var(--ease)}.thread-panel.open{transform:none}.thread-panel header{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid rgba(255,255,255,.1)}.thread-panel header strong{font-size:13px}.thread-body{flex:1;overflow:auto;padding:15px}.thread-message{padding:12px;border-radius:11px;background:rgba(255,255,255,.055);color:#d1cbca;font-size:12px}.thread-replies{display:grid;gap:10px;margin-top:14px}.thread-reply{display:flex;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:11px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;z-index:20;padding:10px 14px;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(27,32,41,.94);color:var(--fg);box-shadow:0 12px 28px rgba(0,0,0,.3);transform:translate(-50%,10px);opacity:0;pointer-events:none;transition:.18s var(--ease);font-size:12px}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:820px){.thread-panel{width:100%}}
+</style>
+<style id="shared-landscape-glass">
+body{background:var(--bg) url("image.png") center / cover fixed no-repeat}
+body::before{content:none}
+.shell{position:relative;z-index:1;background:transparent}
+.topbar,.rail,.conversation,.composer,.members,.thread-panel{border-color:rgba(255,255,255,.13);border-top-color:rgba(255,255,255,.19);background:rgba(7,12,20,.46);backdrop-filter:blur(30px) saturate(116%);-webkit-backdrop-filter:blur(30px) saturate(116%);box-shadow:0 18px 54px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(255,255,255,.025)}
+.community-refine .rail,.community-refine .conversation,.community-refine .composer{background:rgba(7,12,20,.46);border-color:rgba(255,255,255,.13)}
+:root{--muted:#b0aaa7;--muted2:#918b88}
+.channel-title h2{font-size:17px;line-height:1.25}.channel-title p{font-size:12px;color:var(--muted)}
+.message-body p{font-size:14px;color:rgba(255,243,240,.88);line-height:1.58}.meta strong{font-size:13px}.meta time{font-size:11px;color:var(--muted2)}
+.rail-nav button,.channel,.person,.tabs button{font-size:12px}.label,.date{font-size:11px;letter-spacing:.08em}.composer textarea{font-size:14px}
+</style>
+  <style id="responsive-product-refinement">
+    * { scrollbar-width: none; }
+    *::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    .workspace {
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.13);
+      border-top-color: rgba(255,255,255,.19);
+      border-radius: 18px;
+      background: rgba(7,12,20,.46);
+      backdrop-filter: blur(30px) saturate(116%);
+      -webkit-backdrop-filter: blur(30px) saturate(116%);
+      box-shadow: 0 18px 54px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 0 rgba(255,255,255,.025);
+    }
+    .workspace > .rail,
+    .workspace > .conversation {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+    }
+    .workspace > .rail { border-right: 1px solid rgba(255,255,255,.10); }
+    .workspace-name,
+    .rail-search { display: none; }
+    @media (min-width: 821px) and (max-width: 1024px) {
+      .page { padding: 14px; }
+      .workspace { grid-template-columns: 220px minmax(0,1fr); gap: 0; }
+    }
+    @media (max-width: 820px) {
+      body { overflow-x: hidden; }
+      .shell { min-height: 100dvh; height: 100dvh; }
+      .topbar { gap: 10px; padding: 0 12px; }
+      .search { max-width: none; }
+      .page { padding: 10px; }
+      .workspace { height: 100%; display: grid; grid-template-rows: 172px minmax(0, 1fr); gap: 0; border-radius: 16px; }
+      .rail { display: block; max-height: 172px; padding: 10px; overflow-y: auto; }
+      .workspace > .rail { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.10); }
+      .rail-nav { display: flex; gap: 4px; margin: 8px 0 0; overflow-x: auto; scrollbar-width: none; }
+      .rail-nav::-webkit-scrollbar { display: none; }
+      .rail-nav button { min-width: max-content; min-height: 40px; }
+      .rail .label,
+      .rail #directMessages { display: none; }
+      .rail #publicGroups,
+      .rail #privateGroups { display: flex; gap: 4px; margin-top: 5px; overflow-x: auto; scrollbar-width: none; }
+      .rail #publicGroups::-webkit-scrollbar,
+      .rail #privateGroups::-webkit-scrollbar { display: none; }
+      .rail .channel { width: auto; min-width: max-content; min-height: 40px; }
+      .conversation { height: 100%; min-height: 0; border-radius: 0; }
+      .channel-head { min-height: 64px; padding: 0 12px; }
+      .channel-title p { max-width: 42vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .tabs { padding-inline: 10px; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tabs button { min-height: 40px; }
+      .messages { padding: 4px 12px; }
+      .message { padding: 11px 2px; }
+      .composer { margin: 8px 10px 10px; }
+      .composer-tools button,
+      .icon-btn,
+      .small-btn,
+      .member-btn { min-width: 44px; min-height: 44px; }
+      .composer textarea { min-height: 58px; }
+    }
+    @media (max-width: 520px) {
+      .brand span:last-child,
+      .top-actions .icon-btn:not(:last-child),
+      .channel-actions .small-btn { display: none; }
+      .topbar { grid-template-columns: auto 1fr auto; }
+      .search input { height: 44px; }
+      .channel-title p { max-width: 50vw; }
+      .messages { padding-inline: 10px; }
+      .message p { font-size: 13px; }
+      .composer-bottom span { display: none; }
+      .send { width: 44px; height: 44px; }
+      .workspace { grid-template-rows: 148px minmax(0, 1fr); }
+      .rail { max-height: 148px; }
+      .rail-nav { display: none; }
+    }
+  </style>
+  <style id="frosted-glass-theme">
+    .topbar,.rail,.conversation,.composer,.members,.thread-panel {
+      background: rgba(8,20,42,.48);
+      border-color: rgba(255,255,255,.20);
+      border-top-color: rgba(255,255,255,.34);
+      -webkit-backdrop-filter: blur(34px) saturate(138%);
+      backdrop-filter: blur(34px) saturate(138%);
+      box-shadow: 0 22px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(255,255,255,.05);
+    }
+    .community-refine .rail,.community-refine .conversation,.community-refine .composer { background: rgba(8,20,42,.48); border-color: rgba(255,255,255,.20); }
+    .search input,.rail-search,.member-btn,.reaction,.thread,.rail-action,.thread-message {
+      background: rgba(255,255,255,.075);
+      border-color: rgba(255,255,255,.15);
+      color: rgba(255,255,255,.88);
+    }
+    .search input:hover,.rail-search:hover,.member-btn:hover,.reaction:hover,.thread:hover,.rail-action:hover {
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.25);
+      color: #fff;
+    }
+    .message p,.thread-message { color: rgba(236,242,250,.88); }
+  </style>
+<style>
+  .topbar { display: none !important; }
+  .shell { grid-template-rows: 1fr !important; }
+  .rail-nav { display: none !important; }
+</style>
+<style>
+  /* One shared canvas: community modules float over image.png. */
+  html, body { background: transparent !important; background-image: none !important; }
+  body::before, body::after { content: none !important; display: none !important; }
+  .shell { background: transparent !important; }
+  .conversation { background: rgba(8,20,42,.34) !important; border-color: rgba(255,255,255,.18) !important; border-top-color: rgba(255,255,255,.28) !important; backdrop-filter: blur(30px) saturate(124%) !important; -webkit-backdrop-filter: blur(30px) saturate(124%) !important; box-shadow: 0 20px 58px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(255,255,255,.025) !important; }
+</style>
+<style>
+  .brand-logo{display:block;width:132px;height:auto;max-height:24px;object-fit:contain;object-position:left center}
+</style>
+<style id="community-light-glass">
+  /* Neutral transparent glass: the shared canvas remains visible beneath. */
+  .topbar,.rail,.conversation,.composer,.members,.thread-panel,
+  .community-refine .rail,.community-refine .conversation,.community-refine .composer {
+    background: rgba(255,255,255,.075) !important;
+    border-color: rgba(255,255,255,.16) !important;
+    border-top-color: rgba(255,255,255,.24) !important;
+    box-shadow: 0 0 8px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.10) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+  .conversation { background: rgba(255,255,255,.055) !important; }
+  .composer { background: rgba(255,255,255,.095) !important; }
+  .thread-panel { background: rgba(255,255,255,.10) !important; }
+</style>
+<style id="community-chat-dark-glass">
+  /* Mid-level dark transparent glass, consistent with Library and Calendar. */
+  .topbar,.rail,.conversation,.composer,.members,.thread-panel {
+    background: rgba(8,20,42,.34) !important;
+    border-color: rgba(255,255,255,.16) !important;
+    border-top-color: rgba(255,255,255,.24) !important;
+    backdrop-filter: blur(18px) saturate(118%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(118%) !important;
+    box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12) !important;
+  }
+  .composer { background: rgba(10,24,48,.48) !important; }
+  .members,.thread-panel { background: rgba(8,20,42,.58) !important; }
+  .rail-nav button:hover,.channel:hover,.person:hover,.tabs button:hover,.message:hover,.reaction:hover,.thread:hover,
+  .composer-tools button:hover,.message-actions button:hover {
+    background: rgba(255,255,255,.12) !important;
+    color: var(--fg) !important;
+  }
+</style>
+</head>
+<body>
+<div class="shell" data-od-id="community-page"><header class="topbar" data-od-id="community-topbar"><div class="brand"><span class="brand-dot"></span><span>Profeshare AI</span></div><div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="globalSearch" aria-label="Search community" placeholder="Search community" oninput="render()"></div><div class="top-actions"><button class="icon-btn" title="Go back" aria-label="Go back" onclick="history.back()">‹</button><button class="icon-btn" title="More options" aria-label="More options">•••</button></div></header><main class="page"><div class="workspace"><aside class="rail" data-od-id="community-conversation-rail"><div class="workspace-name"><span class="workspace-mark">P</span><span>Profeshare community</span><button aria-label="Community options">⌄</button></div><input id="railSearch" class="rail-search" aria-label="Find a conversation" placeholder="Find a conversation…" oninput="render()"><div class="rail-nav"><button onclick="setView('Threads')">◌ <span>Threads</span></button><button onclick="setView('Huddles')">◉ <span>Huddles</span></button><button onclick="setView('Drafts & sent')">✎ <span>Drafts & sent</span></button></div><div class="label"><span>Public groups</span><button aria-label="Add public group" onclick="notify('Create a public community group')">+</button></div><div id="publicGroups"></div><div class="label"><span>Private groups</span><button aria-label="Add private group" onclick="notify('Create a private community group')">+</button></div><div id="privateGroups"></div><div class="label"><span>Direct messages</span><button aria-label="Start direct message" onclick="notify('Start a direct message')">+</button></div><div id="directMessages"></div></aside><section class="conversation" data-od-id="community-channel"><header class="channel-head"><span id="channelAvatar" class="avatar blue">#</span><div class="channel-title"><h2 id="channelName"></h2><p id="channelDescription"></p></div><div class="channel-actions"><button class="member-btn" onclick="toggleMembers()">♧ <span id="memberCount">8</span></button><button class="small-btn" aria-label="Start huddle" onclick="notify('Start a huddle')">◉</button><button class="small-btn" aria-label="Search channel" onclick="document.getElementById('globalSearch').focus()">⌕</button><button class="small-btn" aria-label="More channel actions">•••</button></div><div id="members" class="members" hidden></div></header><nav class="tabs" aria-label="Community sections"><button class="active" data-view="Messages" onclick="setView('Messages')">Messages</button><button data-view="Add canvas" onclick="setView('Add canvas')">Add canvas</button><button data-view="Files & links" onclick="setView('Files & links')">Files & links</button><button data-view="Pins" onclick="setView('Pins')">Pins</button></nav><div id="messages" class="messages"></div><div id="composer" class="composer" data-od-id="community-composer"><div class="composer-tools"><button aria-label="Bold"><strong>B</strong></button><button aria-label="Italic"><em>I</em></button><button aria-label="Add link">↗</button><button aria-label="Mention">@</button><button aria-label="Add emoji">☺</button></div><textarea id="composerInput" rows="2" placeholder="Write a message…" oninput="updateSend()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea><div class="composer-bottom"><span>Press Enter to send · Shift + Enter for a new line</span><button id="send" class="send" aria-label="Send message" onclick="sendMessage()">➤</button></div></div></section></div></main></div>
+<script>
+const channels=[{id:'product-design-team',name:'product-design-team',private:true,unread:3,description:'Design decisions, reviews, and handoffs'},{id:'ai-research',name:'ai-research',private:false,unread:0,description:'Papers, methods, and source reviews'},{id:'career-circle',name:'career-circle',private:true,unread:1,description:'Mentoring and opportunity sharing'}];const people=[{id:'sush',name:'Susheen',initials:'S',avatar:'rose',status:'online'},{id:'reesha',name:'Reesha',initials:'R',avatar:'green',status:'online'},{id:'akshay',name:'Akshay Padmashali',initials:'A',avatar:'blue',status:'away'},{id:'vishnu',name:'Vishnu Bhat',initials:'V',avatar:'violet',status:'offline'},{id:'musa',name:'Musa',initials:'M',avatar:'amber',status:'online'}];let messages=[{channel:'product-design-team',person:'Sam',initials:'S',avatar:'blue',time:'1:11 PM',text:'The task is approved — I added the latest <a class="link" href="#" onclick="event.preventDefault()">ClickUp handoff</a> for everyone to review.',replies:2,reaction:'👍 1'},{channel:'product-design-team',person:'Susheen',initials:'S',avatar:'rose',time:'11:32 AM',text:'<span class="mention">@here</span> standup?',replies:0,reaction:''},{channel:'product-design-team',person:'Sam',initials:'S',avatar:'blue',time:'5:14 PM',text:'Hey <span class="mention">@Musa</span> created the first design draft. Please check the streaming execution visibility notes and add feedback before review.',replies:1,reaction:'✅ 2'},{channel:'ai-research',person:'Reesha',initials:'R',avatar:'green',time:'10:20 AM',text:'I saved the NIST AI RMF section on mapping trustworthiness considerations to product decisions.',replies:3,reaction:'📌 1'},{channel:'career-circle',person:'Akshay',initials:'A',avatar:'blue',time:'Yesterday',text:'Sharing a role brief for a frontend engineer who can own accessible interaction patterns and design system handoff.',replies:2,reaction:''},{channel:'dm-akshay',person:'Akshay Padmashali',initials:'A',avatar:'blue',time:'9:42 AM',text:'I reviewed the role brief. The accessibility requirements look good — I can share a frontend systems checklist this afternoon.',replies:0,reaction:'👍 1'},{channel:'dm-reesha',person:'Reesha',initials:'R',avatar:'green',time:'Yesterday',text:'I added two papers to the shared research context. Let me know if the evidence trail is clear enough for the first review.',replies:1,reaction:''},{channel:'dm-sush',person:'Susheen',initials:'S',avatar:'rose',time:'Monday',text:'Can we review the product-design-team handoff after standup?',replies:0,reaction:''}];let state={channel:'product-design-team',view:'Messages',members:false};const current=()=>state.channel.startsWith('dm-')?{id:state.channel,name:(people.find(p=>`dm-${p.id}`===state.channel)||{}).name||'Direct message',private:true,description:'Direct message'}:channels.find(c=>c.id===state.channel)||channels[0];function notify(text){const i=document.getElementById('composerInput');i.value=text;updateSend();i.focus()}function setChannel(id){state.channel=id;state.view='Messages';state.members=false;render()}function setView(view){state.view=view;render()}function toggleMembers(){state.members=!state.members;render()}function updateSend(){document.getElementById('send').classList.toggle('ready',!!document.getElementById('composerInput').value.trim())}function sendMessage(){const i=document.getElementById('composerInput'),text=i.value.trim();if(!text)return;messages.push({channel:state.channel,person:'Sam',initials:'S',avatar:'blue',time:'Just now',text:text.replaceAll('<','&lt;'),replies:0,reaction:''});i.value='';updateSend();render()}function row(c){return `<button class="channel ${state.channel===c.id?'active':''}" onclick="setChannel('${c.id}')"><span class="channel-icon">${c.private?'⌑':'#'}</span><span>${c.name}</span>${c.unread?`<span class="badge">${c.unread}</span>`:''}</button>`}function render(){const q=(document.getElementById('globalSearch').value||document.getElementById('railSearch').value||'').toLowerCase(),match=x=>!q||JSON.stringify(x).toLowerCase().includes(q),c=current();document.getElementById('publicGroups').innerHTML=channels.filter(x=>!x.private&&match(x)).map(row).join('');document.getElementById('privateGroups').innerHTML=channels.filter(x=>x.private&&match(x)).map(row).join('');document.getElementById('directMessages').innerHTML=people.filter(match).map(p=>`<button class="person ${state.channel===`dm-${p.id}`?'active':''}" onclick="setChannel('dm-${p.id}')"><span class="avatar small ${p.avatar}">${p.initials}</span><span>${p.name}</span><span class="person-status" style="background:${p.status==='online'?'#66d6a1':p.status==='away'?'#f2bd72':'#756f6c'}"></span></button>`).join('')||'<div class="empty"><span>No conversations found.</span></div>';document.getElementById('channelAvatar').className=`avatar ${c.private?'violet':'blue'}`;document.getElementById('channelAvatar').textContent=c.private?'⌑':'#';document.getElementById('channelName').textContent=c.name;document.getElementById('channelDescription').textContent=c.description;document.getElementById('memberCount').textContent=people.length+3;document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.view===state.view));const box=document.getElementById('members');box.hidden=!state.members;box.innerHTML=`<strong>Members · ${people.length+3}</strong>${people.slice(0,4).map(p=>`<div class="member-row"><span class="avatar small ${p.avatar}">${p.initials}</span><span>${p.name}</span><span>${p.status}</span></div>`).join('')}`;const list=messages.filter(m=>m.channel===c.id&&(!q||`${m.person} ${m.text}`.toLowerCase().includes(q))),root=document.getElementById('messages');if(state.view!=='Messages'){root.innerHTML=`<div class="empty"><div><strong>${state.view}</strong><span>Shared ${state.view.toLowerCase()} for ${c.name} will appear here.</span></div></div>`;document.getElementById('composer').style.display='none';return}document.getElementById('composer').style.display='block';root.innerHTML=list.length?`<div class="date">Today</div>${list.map(m=>`<article class="message"><span class="avatar ${m.avatar}">${m.initials}</span><div class="message-body"><div class="meta"><strong>${m.person}</strong><time>${m.time}</time></div><p>${m.text}</p><div class="tools">${m.reaction?`<button class="reaction" onclick="notify('React to ${m.person}’s message')">${m.reaction}</button>`:''}${m.replies?`<button class="thread" onclick="notify('Open ${m.replies} replies from ${m.person}')">${m.replies} ${m.replies===1?'reply':'replies'} · View thread</button>`:''}</div></div></article>`).join('')}`:'<div class="empty"><div><strong>No messages match this search</strong><span>Start the conversation with the composer below.</span></div></div>'}render();
+</script>
+<script>
+/* Interaction polish: filters, message actions, thread panel, and lightweight realtime cues. */
+const communityBaseRender=render;
+function communityToast(message){let toast=document.getElementById('communityToast');if(!toast){toast=document.createElement('div');toast.id='communityToast';toast.className='toast';toast.setAttribute('role','status');document.body.appendChild(toast)}toast.textContent=message;toast.classList.add('show');clearTimeout(window.__communityToast);window.__communityToast=setTimeout(()=>toast.classList.remove('show'),2200)}
+function notify(text){const i=document.getElementById('composerInput');i.value=text;updateSend();i.focus();communityToast('Draft added to the composer')}
+function openThread(person,replies,text){const panel=document.getElementById('threadPanel');if(!panel)return;panel.classList.add('open');panel.setAttribute('aria-hidden','false');panel.querySelector('[data-thread-title]').textContent=`${replies} ${replies===1?'reply':'replies'} · ${person}`;panel.querySelector('[data-thread-body]').innerHTML=`<div class="thread-message"><strong>${person}</strong><p>${text}</p></div><div class="thread-replies"><div class="thread-reply"><span class="avatar small rose">R</span><span>That direction works. I’ll add the supporting notes before the next review.</span></div><div class="thread-reply"><span class="avatar small green">A</span><span>Added this to the shared context so the whole group can follow along.</span></div></div>`}
+function closeThread(){const panel=document.getElementById('threadPanel');if(panel){panel.classList.remove('open');panel.setAttribute('aria-hidden','true')}}
+function setRailFilter(filter){state.railFilter=filter;document.querySelectorAll('.rail-switcher button').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));render()}
+const originalRow=row;row=function(c){return `<button class="channel ${state.channel===c.id?'active':''}" onclick="setChannel('${c.id}')"><span class="channel-icon">${c.private?'⌑':'#'}</span><span>${c.name}</span>${c.unread?`<span class="badge">${c.unread}</span><span class="channel-unread" aria-label="Unread messages"></span>`:''}</button>`}
+const originalRender=render;render=function(){originalRender();const filter=state.railFilter||'all';document.querySelectorAll('#publicGroups .channel,#privateGroups .channel').forEach(el=>el.hidden=filter==='people'||(filter==='unread'&&!el.querySelector('.badge')));document.querySelectorAll('#directMessages .person').forEach(el=>el.hidden=filter==='groups'||filter==='unread');document.querySelectorAll('#messages .message').forEach(article=>{if(article.querySelector('.message-actions'))return;const meta=article.querySelector('.meta strong')?.textContent||'Message';const text=article.querySelector('.message-body p')?.textContent||'';const thread=article.querySelector('.thread');const actions=document.createElement('div');actions.className='message-actions';actions.innerHTML=`<button aria-label="React to ${meta}" onclick="notify('React to ${meta}’s message')">♡</button><button aria-label="Reply to ${meta}" onclick="openThread('${meta}',${thread?Number(thread.textContent):2},'${text.replaceAll("'","\\'")}')">↩</button><button aria-label="More message actions" onclick="communityToast('Message actions are ready')">•••</button>`;article.appendChild(actions);});};
+document.addEventListener('DOMContentLoaded',()=>{
+  const search=document.getElementById('railSearch');if(search){search.insertAdjacentHTML('afterend','<div class="rail-switcher" role="tablist" aria-label="Conversation filter"><button class="active" data-filter="all" onclick="setRailFilter(\'all\')">All</button><button data-filter="unread" onclick="setRailFilter(\'unread\')">Unread</button><button data-filter="people" onclick="setRailFilter(\'people\')">People</button></div><div class="rail-actions"><button class="rail-action" onclick="communityToast(\'New conversation flow ready\')">＋ New</button><button class="rail-action" onclick="communityToast(\'Invite link copied\')">Invite</button></div>')}
+  const conversation=document.querySelector('.conversation');if(conversation){conversation.insertAdjacentHTML('beforeend','<aside id="threadPanel" class="thread-panel" aria-hidden="true"><header><strong data-thread-title>Thread</strong><button class="small-btn" aria-label="Close thread" onclick="closeThread()">×</button></header><div class="thread-body" data-thread-body></div><div class="composer" style="margin:12px"><textarea rows="2" placeholder="Reply in thread…" aria-label="Reply in thread"></textarea><div class="composer-bottom"><span>Replies stay with this conversation</span><button class="send ready" aria-label="Send thread reply" onclick="communityToast(\'Thread reply sent\')">➤</button></div></div></aside>')}
+  render();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeThread();const m=document.getElementById('members');if(m){m.hidden=true;state.members=false}}if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();document.getElementById('globalSearch')?.focus()}});
+</script>
+<script>
+  const communityBrand = document.querySelector('.brand');
+  if (communityBrand) communityBrand.innerHTML = '<img class="brand-logo" src="Profeshare-AI-Logo.svg" alt="Profeshare AI">';
+</script>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Library — Profeshare AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0f0f0f;--surface:#171717;--surface-2:#1d1d1d;--fg:#fff3f0;--muted:#a59f9d;--muted-2:#756f6c;--border:rgba(255,243,240,.12);--border-strong:rgba(255,243,240,.2);--accent:#fff3f0;--success:#66d6a1;--warning:#f2bd72;--danger:#f08c91;--blue:#8bbcff;--font:'Inter',system-ui,sans-serif;--radius:16px;--ease:cubic-bezier(.2,0,0,1)}
+    *{box-sizing:border-box}html{color-scheme:dark}body{margin:0;min-width:320px;min-height:100vh;background:var(--bg);color:var(--fg);font:14px/1.5 var(--font);-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit;color:inherit}button{border:0;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.library-shell{min-height:100vh;display:grid;grid-template-rows:58px 1fr;background:radial-gradient(circle at 75% -10%,rgba(255,243,240,.06),transparent 34%),var(--bg)}
+    .library-topbar{display:flex;align-items:center;gap:18px;padding:0 22px;border-bottom:1px solid var(--border);background:rgba(15,15,15,.78);backdrop-filter:blur(22px);position:relative;z-index:5}.brand{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.02em;min-width:178px}.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px rgba(255,243,240,.35)}.top-search{flex:1;max-width:680px;margin:0 auto;position:relative}.top-search input{width:100%;height:36px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.035);padding:0 40px;color:var(--fg)}.top-search input::placeholder{color:var(--muted-2)}.search-icon{position:absolute;left:13px;top:10px;width:16px;height:16px;color:var(--muted)}.top-actions{display:flex;align-items:center;gap:4px;margin-left:auto}.icon-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:transparent;color:var(--muted);transition:background .15s var(--ease),color .15s var(--ease)}.icon-btn:hover{background:rgba(255,255,255,.08);color:var(--fg)}.icon-btn svg{width:17px;height:17px}.library-grid{display:grid;grid-template-columns:246px minmax(420px,1fr) 338px;min-height:0}.panel{min-width:0;min-height:0;border-right:1px solid var(--border);background:rgba(255,255,255,.018)}.themes-panel{padding:22px 14px 18px;overflow:auto}.panel-heading{display:flex;align-items:center;justify-content:space-between;padding:0 10px 16px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-2);font-weight:600}.theme-add{color:var(--muted);font-size:22px;line-height:1;background:transparent}.theme-add:hover{color:var(--fg)}.theme-list{display:grid;gap:3px}.theme-row{width:100%;display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:9px;background:transparent;text-align:left;color:var(--muted);transition:background .15s var(--ease),color .15s var(--ease)}.theme-row:hover,.theme-row.is-active{background:rgba(255,243,240,.08);color:var(--fg)}.theme-row .chevron{width:13px;height:13px;flex:none;color:var(--muted-2);transition:transform .15s var(--ease)}.theme-row[aria-expanded="true"] .chevron{transform:rotate(90deg)}.theme-row .theme-count{margin-left:auto;color:var(--muted-2);font-size:11px}.subthemes{display:none;padding-left:20px}.subthemes.is-open{display:grid;gap:2px}.subtheme{padding:7px 10px;border-radius:8px;color:var(--muted-2);background:transparent;text-align:left}.subtheme:hover,.subtheme.is-active{color:var(--fg);background:rgba(255,243,240,.06)}.sidebar-footer{margin-top:34px;display:grid;gap:4px;padding:0 10px}.footer-link{display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--muted-2);background:transparent;text-align:left}.footer-link:hover{color:var(--fg)}.footer-link svg{width:15px;height:15px}.content-panel{display:flex;flex-direction:column;overflow:hidden;background:rgba(255,255,255,.012)}.content-header{padding:28px 30px 0}.breadcrumbs{display:flex;align-items:center;gap:8px;color:var(--muted-2);font-size:13px}.breadcrumbs strong{color:var(--fg);font-weight:500}.breadcrumbs svg{width:14px;height:14px}.title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:25px}.title-row h1{margin:0;font-size:clamp(28px,3vw,38px);letter-spacing:-.055em;line-height:1.05}.title-row p{margin:8px 0 0;color:var(--muted);max-width:560px}.tabs{display:flex;gap:24px;margin-top:30px;border-bottom:1px solid var(--border);overflow:auto}.tab{position:relative;display:flex;align-items:center;gap:7px;padding:0 0 13px;background:transparent;white-space:nowrap;color:var(--muted);font-weight:500}.tab:hover,.tab.is-active{color:var(--fg)}.tab.is-active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);border-radius:2px}.tab svg{width:15px;height:15px}.count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:rgba(255,243,240,.08);font-size:10px;color:var(--muted)}.toolbar{display:flex;align-items:center;gap:8px;padding:18px 30px 12px}.toolbar-search{position:relative;flex:1;min-width:120px}.toolbar-search input{width:100%;height:36px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);padding:0 12px 0 34px}.toolbar-search svg{position:absolute;left:11px;top:10px;width:16px;height:16px;color:var(--muted-2)}.select-control{height:36px;max-width:125px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);padding:0 10px;color:var(--muted)}.toolbar .icon-btn{border:1px solid var(--border);background:rgba(255,255,255,.025)}.source-list{flex:1;overflow:auto;padding:4px 20px 24px 30px}.source-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto 28px;align-items:center;gap:12px;padding:13px 10px;border-bottom:1px solid rgba(255,243,240,.07);border-radius:12px;transition:background .15s var(--ease)}.source-row:hover,.source-row.is-selected{background:rgba(255,243,240,.055)}.source-row input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}.source-type{width:34px;height:34px;display:grid;place-items:center;border:1px dashed var(--border-strong);border-radius:9px;color:var(--blue)}.source-type.article{color:var(--warning)}.source-type.video{color:#ef989d}.source-type svg{width:16px;height:16px}.source-main{min-width:0}.source-title{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--fg);font-weight:500}.source-meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted-2);font-size:12px;margin-top:3px}.status{padding:3px 8px;border-radius:99px;font-size:11px;white-space:nowrap;background:rgba(255,255,255,.06);color:var(--muted)}.status.unread{background:rgba(240,140,145,.12);color:var(--danger)}.status.reading{background:rgba(139,188,255,.13);color:var(--blue)}.status.read{background:rgba(102,214,161,.12);color:var(--success)}.row-menu{opacity:0;color:var(--muted);background:transparent;font-size:20px;line-height:1}.source-row:hover .row-menu,.source-row.is-selected .row-menu{opacity:1}.empty-state{display:grid;place-items:center;text-align:center;min-height:260px;color:var(--muted);padding:35px}.empty-state strong{display:block;color:var(--fg);margin-bottom:5px}.ai-panel{border-right:0;border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:rgba(255,255,255,.028);backdrop-filter:blur(20px)}.ai-panel.is-collapsed{width:58px}.ai-panel.is-collapsed>*:not(.ai-header){display:none}.ai-header{height:62px;display:flex;align-items:center;gap:9px;padding:0 14px;border-bottom:1px solid var(--border);flex:none}.ai-header strong{font-size:13px;white-space:nowrap}.ai-header .spacer{flex:1}.ai-content{overflow:auto;padding:24px 18px 18px}.ai-label{color:var(--muted-2);font-size:12px;margin-bottom:9px}.summary-copy{margin:0;color:var(--fg);line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.ai-section{margin-bottom:25px}.quick-actions{display:flex;flex-wrap:wrap;gap:7px}.quick-pill{border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.035);padding:8px 10px;color:var(--muted);font-size:12px}.quick-pill:hover{border-color:var(--border-strong);color:var(--fg);background:rgba(255,243,240,.07)}.suggestions{display:grid;gap:8px}.suggestion{width:100%;text-align:left;padding:12px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.03);color:var(--muted);line-height:1.45;transition:border-color .15s var(--ease),color .15s var(--ease)}.suggestion:hover{border-color:var(--border-strong);color:var(--fg)}.composer{margin-top:auto;padding:12px;border:1px solid var(--border-strong);border-radius:16px;background:rgba(15,15,15,.72);box-shadow:0 16px 45px rgba(0,0,0,.25)}.context-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.context-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:7px;background:rgba(255,243,240,.08);color:var(--fg);font-size:11px}.context-chip button{background:transparent;color:var(--muted);padding:0;line-height:1}.composer textarea{width:100%;min-height:48px;resize:none;border:0;background:transparent;padding:3px 0;color:var(--fg);outline:0}.composer textarea::placeholder{color:var(--muted-2)}.composer-bottom{display:flex;align-items:center;gap:6px;color:var(--muted-2)}.composer-bottom select{max-width:112px;border:0;background:transparent;color:var(--muted-2);font-size:11px}.usage{margin-left:auto;font-size:11px}.send-btn{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#171717;opacity:.35}.send-btn.is-ready{opacity:1}.send-btn svg{width:14px;height:14px}.mention-picker{position:absolute;right:18px;bottom:88px;width:230px;padding:8px;border:1px solid var(--border-strong);border-radius:12px;background:#1b1b1b;box-shadow:0 18px 40px rgba(0,0,0,.35);z-index:6}.mention-picker button{display:block;width:100%;padding:8px;border-radius:7px;text-align:left;background:transparent;color:var(--muted)}.mention-picker button:hover{background:rgba(255,255,255,.08);color:var(--fg)}.hidden{display:none!important}.mobile-ai-toggle{display:none}
+    @media(max-width:1100px){.library-grid{grid-template-columns:210px minmax(380px,1fr) 300px}.brand{min-width:155px}.content-header{padding-left:22px;padding-right:22px}.toolbar{padding-left:22px;padding-right:22px}.source-list{padding-left:22px}.tabs{gap:17px}}
+    @media(max-width:820px){.library-shell{grid-template-rows:58px 1fr}.library-grid{display:flex;flex-direction:column;min-height:0}.themes-panel{display:none}.content-panel{min-height:calc(100vh - 58px)}.ai-panel{position:fixed;left:10px;right:10px;bottom:10px;z-index:20;max-height:78vh;border:1px solid var(--border-strong);border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.5);transform:translateY(calc(100% - 56px));transition:transform .24s var(--ease)}.ai-panel.is-mobile-open{transform:translateY(0)}.ai-panel.is-collapsed{width:auto;transform:translateY(calc(100% - 56px))}.ai-panel.is-collapsed .ai-header{display:flex}.ai-panel.is-collapsed .ai-header strong{display:block}.ai-panel.is-collapsed>*:not(.ai-header){display:none}.mobile-ai-toggle{display:flex;position:fixed;right:22px;bottom:27px;z-index:21}.ai-panel.is-mobile-open + .mobile-ai-toggle{display:none}.top-search{max-width:none}.top-actions .icon-btn:not(:last-child){display:none}.brand{min-width:auto}.brand span{display:none}.content-header{padding-top:22px}.title-row{margin-top:19px}.source-row{grid-template-columns:34px minmax(0,1fr) auto 22px;gap:8px}.source-row input{display:none}.toolbar{flex-wrap:wrap}.toolbar-search{flex-basis:100%}.select-control{flex:1;max-width:none}}
+    @media(max-width:500px){.library-topbar{padding:0 14px;gap:10px}.content-header{padding-left:16px;padding-right:16px}.toolbar{padding-left:16px;padding-right:16px}.source-list{padding-left:16px;padding-right:16px}.tabs{gap:18px}.tab{font-size:12px}.source-row{padding:12px 5px}.status{font-size:10px;padding:3px 6px}.source-meta{font-size:11px}.title-row p{font-size:12px}.top-search{display:none}}
+    /* Source rows reserve a narrow selection column before the type icon. */
+    .source-row{grid-template-columns:18px 38px minmax(0,1fr) auto 28px}
+    @media(max-width:820px){.source-row{grid-template-columns:24px 34px minmax(0,1fr) auto 22px}}
+    body::before{content:"";position:fixed;inset:0;z-index:0;background:url("image.png") center/cover no-repeat;pointer-events:none}
+    .library-shell{position:relative;z-index:1;background:rgba(15,15,15,.08)}
+    .library-grid{grid-template-columns:minmax(0,1fr) 338px}.content-panel{border-right:1px solid var(--border)}
+    .source-row{grid-template-columns:42px minmax(0,1fr) auto 28px;cursor:pointer}.source-row input[type=checkbox]{display:none}.source-type{font-size:12px;font-weight:600}.source-main{padding:2px 0}.source-row:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,.14)}
+    .view-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:4px 20px 24px 30px;overflow:auto}.library-card{position:relative;min-height:168px;padding:18px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.035);transition:transform .15s var(--ease),background .15s var(--ease),border-color .15s var(--ease);cursor:pointer}.library-card:hover{transform:translateY(-2px);background:rgba(255,243,240,.065);border-color:var(--border-strong)}.library-card h3{margin:0 28px 10px 0;font-size:15px;line-height:1.3;letter-spacing:-.02em}.library-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.card-footer{position:absolute;left:18px;right:18px;bottom:15px;display:flex;align-items:center;gap:8px;color:var(--muted-2);font-size:11px}.card-footer .tag{color:var(--muted);margin-left:auto}.card-arrow{position:absolute;top:15px;right:16px;color:var(--muted-2);font-size:18px}.card-kicker{color:var(--muted-2);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}.source-card-type{display:inline-flex;align-items:center;gap:6px;margin-bottom:15px;color:var(--muted);font-size:11px}.source-card-type strong{color:var(--fg);font-weight:500}.empty-card{display:grid;place-items:center;text-align:center;border-style:dashed;color:var(--muted-2)}.empty-card strong{display:block;color:var(--fg);margin-bottom:5px}.detail-view{display:none;position:absolute;inset:0;z-index:12;overflow:auto;background:var(--bg);padding:30px 34px}.detail-view.is-open{display:block}.detail-back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);background:transparent;margin-bottom:28px}.detail-back:hover{color:var(--fg)}.detail-view h2{max-width:760px;margin:0 0 12px;font-size:clamp(28px,4vw,44px);line-height:1.06;letter-spacing:-.055em}.detail-view .detail-meta{color:var(--muted);margin-bottom:28px}.detail-body{max-width:720px;color:var(--fg);font-size:16px;line-height:1.8}.detail-body p{margin:0 0 18px}.detail-context{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:rgba(255,243,240,.07);color:var(--muted);font-size:12px;margin-bottom:22px}.detail-actions{display:flex;gap:8px;margin-top:28px}.detail-action{padding:9px 13px;border:1px solid var(--border);border-radius:9px;background:rgba(255,255,255,.04);color:var(--muted)}.detail-action:hover{color:var(--fg);background:rgba(255,255,255,.08)}
+    @media(max-width:820px){.library-grid{display:flex;flex-direction:column}.content-panel{min-height:calc(100vh - 58px);border-right:0}.view-grid{grid-template-columns:1fr;padding-left:16px;padding-right:16px}.detail-view{padding:24px 20px 100px}}
+    .library-topbar{background:rgba(5,8,12,.68);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);box-shadow:0 12px 35px rgba(0,0,0,.16)}
+    .content-panel{background:rgba(5,8,12,.32);box-shadow:inset 0 0 90px rgba(0,0,0,.12)}
+    .ai-panel{background:rgba(9,12,17,.76);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:-18px 0 55px rgba(0,0,0,.16)}
+    .source-row,.library-card{box-shadow:0 12px 28px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.035)}
+    /* Unified glass surfaces for every library state. */
+    .content-panel{background:rgba(7,10,14,.44);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    .tabs{gap:8px;margin-top:26px;padding-bottom:10px;border-bottom:0}
+    .tab{padding:9px 12px;border:1px solid rgba(255,255,255,.09);border-radius:11px;background:rgba(17,21,27,.58);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--muted);transition:background .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease),transform .15s var(--ease)}
+    .tab:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18);transform:translateY(-1px)}
+    .tab.is-active{background:rgba(255,243,240,.13);border-color:rgba(255,243,240,.26);color:var(--fg);box-shadow:0 8px 22px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.08)}
+    .tab.is-active:after{display:none}
+    .count{background:rgba(255,255,255,.09);color:var(--fg)}
+    .toolbar{padding:14px 30px 14px;gap:9px}
+    .toolbar-search input,.select-control,.toolbar .icon-btn{border:1px solid rgba(255,255,255,.12);background:rgba(17,21,27,.66);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 20px rgba(0,0,0,.1);transition:border-color .15s var(--ease),background .15s var(--ease),box-shadow .15s var(--ease)}
+    .toolbar-search input:focus,.select-control:focus,.toolbar .icon-btn:hover{border-color:rgba(255,243,240,.3);background:rgba(24,29,36,.84);box-shadow:0 8px 22px rgba(0,0,0,.18),0 0 0 3px rgba(255,243,240,.06)}
+    .select-control{max-width:138px;color:var(--fg);cursor:pointer}
+    .source-list{display:grid;align-content:start;gap:10px;padding:6px 24px 28px 30px}
+    .source-row{min-height:78px;grid-template-columns:42px minmax(0,1fr) auto 28px;padding:14px 15px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(17,21,27,.72);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 14px 34px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease)}
+    .source-row:hover,.source-row.is-selected{background:rgba(29,35,43,.82);border-color:rgba(255,255,255,.22);box-shadow:0 18px 38px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.1);transform:translateY(-1px)}
+    .source-type{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:11px}
+    .source-title{font-size:14px}.source-meta{margin-top:5px;color:var(--muted)}
+    .status{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.08);color:var(--fg)}
+    .view-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:6px 24px 28px 30px}
+    .library-card{min-height:196px;padding:19px 19px 58px;border:1px solid rgba(255,255,255,.12);border-radius:17px;background:rgba(17,21,27,.72);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 14px 34px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease)}
+    .library-card:hover{transform:translateY(-3px);background:rgba(29,35,43,.84);border-color:rgba(255,255,255,.22);box-shadow:0 20px 44px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.1)}
+    .library-card h3{font-size:16px;line-height:1.35;margin-bottom:9px}.library-card p{font-size:13px;line-height:1.6;color:#c2bcba}
+    .card-kicker{color:#a9a1a0;margin-bottom:13px}.card-footer{left:19px;right:19px;bottom:17px;padding-top:11px;border-top:1px solid rgba(255,255,255,.08);color:#938b89}.card-footer .tag{color:#cfc7c4}.card-arrow{top:17px;right:18px;color:#bcb4b1}
+    .empty-card{min-height:196px;background:rgba(17,21,27,.38);border-style:dashed;color:var(--muted)}
+    .empty-card:hover{background:rgba(29,35,43,.58)}
+    @media(max-width:820px){.toolbar{padding-left:16px;padding-right:16px}.source-list{padding-left:16px;padding-right:16px}.view-grid{grid-template-columns:1fr;padding-left:16px;padding-right:16px}.source-row{grid-template-columns:42px minmax(0,1fr) auto 22px}}
+    .toolbar.is-community .select-control,.toolbar.is-community> .icon-btn{display:none}
+    .toolbar.is-community{padding-bottom:10px}
+    .community-view{flex:1;min-height:0;display:grid;grid-template-columns:236px minmax(0,1fr);gap:12px;padding:2px 24px 24px 30px;overflow:hidden}
+    .community-sidebar,.community-main{min-width:0;min-height:0;border:1px solid rgba(255,255,255,.12);border-radius:17px;background:rgba(11,15,21,.68);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 16px 38px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07)}
+    .community-sidebar{display:flex;flex-direction:column;overflow:hidden;padding:13px 10px}
+    .community-workspace{display:flex;align-items:center;gap:9px;padding:3px 7px 13px;color:var(--fg);font-weight:600}.community-workspace-mark{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;background:rgba(255,243,240,.14);border:1px solid rgba(255,255,255,.16);font-size:12px}.community-workspace button{margin-left:auto;color:var(--muted);background:transparent}
+    .community-search{height:34px;width:100%;padding:0 10px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.045);color:var(--fg);outline:0}.community-search:focus{border-color:rgba(255,243,240,.3);background:rgba(255,255,255,.08)}.community-search::placeholder{color:var(--muted-2)}
+    .community-nav{display:grid;gap:2px;margin:13px 0 15px}.community-nav button,.community-channel{display:flex;align-items:center;gap:9px;width:100%;padding:8px 9px;border-radius:9px;background:transparent;text-align:left;color:var(--muted);font-size:12px}.community-nav button:hover,.community-channel:hover{background:rgba(255,255,255,.07);color:var(--fg)}.community-section-label{display:flex;align-items:center;gap:6px;padding:10px 9px 5px;color:var(--muted-2);font-size:10px;text-transform:uppercase;letter-spacing:.09em;font-weight:600}.community-section-label button{margin-left:auto;color:var(--muted);background:transparent;font-size:16px}.community-channel.is-active{background:rgba(255,243,240,.12);color:var(--fg);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}.community-channel .channel-icon{width:16px;text-align:center;color:var(--muted-2)}.community-channel .channel-badge{margin-left:auto;padding:2px 6px;border-radius:99px;background:rgba(255,255,255,.1);font-size:10px;color:var(--fg)}.community-dm-list{overflow:auto;min-height:0}.community-person{width:100%;display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;background:transparent;color:var(--muted);text-align:left}.community-person:hover{background:rgba(255,255,255,.07);color:var(--fg)}.community-person.is-active{background:rgba(255,243,240,.1);color:var(--fg)}
+    .community-avatar{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;flex:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);color:var(--fg);font-size:11px;font-weight:700}.community-avatar.small{width:23px;height:23px;border-radius:7px;font-size:9px}.avatar-blue{background:rgba(94,156,255,.28)}.avatar-green{background:rgba(78,190,144,.25)}.avatar-rose{background:rgba(226,120,140,.28)}.avatar-amber{background:rgba(224,166,83,.26)}.avatar-violet{background:rgba(150,123,226,.28)}.community-person-status{width:7px;height:7px;margin-left:auto;border-radius:50%;background:var(--success);box-shadow:0 0 0 2px rgba(102,214,161,.1)}
+    .community-main{display:flex;flex-direction:column;overflow:hidden;position:relative}.community-channel-head{height:63px;display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.1);flex:none}.community-channel-head h2{margin:0;font-size:15px;letter-spacing:-.02em}.community-channel-head p{margin:2px 0 0;color:var(--muted-2);font-size:11px}.community-channel-title{min-width:0}.community-channel-actions{display:flex;align-items:center;gap:4px;margin-left:auto}.community-icon-button{width:31px;height:31px;display:grid;place-items:center;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted)}.community-icon-button:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12);color:var(--fg)}.community-member-button{display:flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid rgba(255,255,255,.1);border-radius:9px;background:rgba(255,255,255,.045);color:var(--muted);font-size:11px}.community-member-button:hover{background:rgba(255,255,255,.09);color:var(--fg)}
+    .community-subnav{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.08);flex:none}.community-subnav button{padding:6px 9px;border-radius:8px;background:transparent;color:var(--muted);font-size:11px}.community-subnav button:hover,.community-subnav button.is-active{background:rgba(255,255,255,.08);color:var(--fg)}
+    .community-messages{flex:1;overflow:auto;padding:8px 17px 0}.community-date{display:flex;align-items:center;gap:9px;margin:17px 0 10px;color:var(--muted-2);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.community-date:before,.community-date:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.08)}.community-message{display:flex;gap:10px;padding:10px 4px;border-radius:10px}.community-message:hover{background:rgba(255,255,255,.045)}.community-message-body{min-width:0;flex:1}.community-message-meta{display:flex;align-items:baseline;gap:8px}.community-message-meta strong{font-size:13px;color:var(--fg)}.community-message-meta time{font-size:10px;color:var(--muted-2)}.community-message-body p{margin:4px 0 0;color:#d1cbca;font-size:13px;line-height:1.55}.community-link{color:#83c8ff;text-decoration:none}.community-link:hover{text-decoration:underline}.community-mention{padding:1px 4px;border-radius:4px;background:rgba(242,189,114,.16);color:#f4c778}.community-message-tools{display:flex;align-items:center;gap:6px;margin-top:7px}.community-reaction,.community-thread-link{padding:4px 7px;border:1px solid rgba(255,255,255,.1);border-radius:7px;background:rgba(255,255,255,.045);color:var(--muted);font-size:10px}.community-reaction:hover,.community-thread-link:hover{background:rgba(255,255,255,.09);color:var(--fg)}
+    .community-composer{margin:12px 16px 16px;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(17,21,27,.78);box-shadow:0 16px 34px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07);overflow:hidden;flex:none}.community-composer-tools{display:flex;align-items:center;gap:3px;padding:7px 9px;border-bottom:1px solid rgba(255,255,255,.08)}.community-composer-tools button{width:26px;height:26px;border-radius:7px;background:transparent;color:var(--muted);font-size:12px}.community-composer-tools button:hover{background:rgba(255,255,255,.08);color:var(--fg)}.community-composer textarea{display:block;width:100%;min-height:48px;resize:none;border:0;outline:0;background:transparent;padding:11px 12px;color:var(--fg);font-size:13px}.community-composer textarea::placeholder{color:var(--muted-2)}.community-composer-bottom{display:flex;align-items:center;gap:7px;padding:6px 9px}.community-composer-bottom span{color:var(--muted-2);font-size:10px}.community-send{margin-left:auto;width:29px;height:29px;border-radius:8px;background:rgba(255,243,240,.18);color:var(--fg);opacity:.45}.community-send.is-ready{opacity:1;background:var(--accent);color:#171717}.community-members{position:absolute;top:57px;right:14px;z-index:5;width:230px;padding:12px;border:1px solid rgba(255,255,255,.16);border-radius:14px;background:rgba(12,16,22,.94);backdrop-filter:blur(24px);box-shadow:0 18px 42px rgba(0,0,0,.38)}.community-members strong{display:block;margin-bottom:8px;font-size:12px}.community-member-row{display:flex;align-items:center;gap:8px;padding:7px 0;color:var(--muted);font-size:11px}.community-member-row span:last-child{margin-left:auto;color:var(--muted-2)}
+    .community-empty{display:grid;place-items:center;height:100%;min-height:300px;color:var(--muted);text-align:center}.community-empty strong{display:block;color:var(--fg);margin-bottom:4px}
+    @media(max-width:1000px){.community-view{grid-template-columns:210px minmax(0,1fr);padding-left:22px;padding-right:18px}.community-channel-actions .community-icon-button:nth-last-child(-n+2){display:none}}
+    @media(max-width:820px){.community-view{grid-template-columns:1fr;padding:2px 16px 18px}.community-sidebar{max-height:210px}.community-dm-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.community-main{min-height:560px}.community-channel-head{padding:0 12px}.community-subnav{overflow:auto;white-space:nowrap}}
+    /* Library viewport and fixed-controls refinement */
+    .library-shell{height:100vh;min-height:0;overflow:hidden}
+    .library-grid{height:100%;max-height:calc(100vh - 58px);overflow:hidden}
+    .content-panel{height:100%;min-height:0}
+    .content-header{flex:none;padding:22px 30px 0}
+    .title-row{margin-top:0}
+    .tabs{gap:8px;margin-top:18px;padding-bottom:10px;overflow-x:auto;flex:none}
+    .tab{min-height:32px;padding:6px 9px;font-size:12px;gap:5px;border-radius:9px}
+    .tab svg{width:13px;height:13px}
+    .count{min-width:16px;height:16px;padding:0 4px;font-size:9px}
+    .toolbar{flex:none;padding:14px 30px 16px}
+    .toolbar-search input,.select-control{height:40px}
+    .toolbar-search svg{top:12px}
+    .upload-action{width:auto!important;height:40px!important;display:inline-flex;align-items:center;gap:7px;padding:0 12px;white-space:nowrap}
+    .upload-action span{font-size:12px;font-weight:500}
+    .source-list,.view-grid{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:4px 30px 26px}
+    .ai-panel{height:100%;max-height:calc(100vh - 58px);min-height:0;overflow:hidden}
+    .ai-content{flex:1;min-height:0;overflow-y:auto;padding:18px}
+    .ai-section{margin-bottom:18px}
+    .suggestions{gap:6px}
+    .suggestion{min-height:0;padding:8px 10px;border-radius:9px;font-size:11px;line-height:1.4}
+    .source-type{width:auto;min-width:48px;height:34px;padding:0 8px;font-size:9px;font-weight:600;letter-spacing:.06em;white-space:nowrap}
+    @media(max-width:1100px){.content-header,.toolbar{padding-left:22px;padding-right:22px}.source-list,.view-grid{padding-left:22px;padding-right:22px}}
+    @media(max-width:820px){.library-grid{max-height:calc(100vh - 58px)}.ai-panel{max-height:min(78vh,calc(100vh - 20px))}.content-header,.toolbar,.source-list,.view-grid{padding-left:16px;padding-right:16px}}
+    @media(max-width:500px){.tabs{gap:6px}.tab{padding:6px 8px}.toolbar{gap:7px}.upload-action span{display:none}.upload-action{width:40px!important;padding:0;justify-content:center}}
+    :where(input, select, textarea):focus,
+    :where(input, select, textarea):focus-visible {
+      outline: none !important;
+      border-color: inherit !important;
+      box-shadow: none !important;
+    }
+  </style>
+  <style id="shared-landscape-glass">
+    body{background:var(--bg) url("image.png") center / cover fixed no-repeat}
+    body::before{content:none}
+    .library-shell{position:relative;z-index:1;background:transparent}
+    .library-topbar,.content-panel,.ai-panel,.source-row,.library-card,.community-sidebar,.community-main,.community-composer,.composer,.mention-picker,.detail-view{border-color:rgba(255,255,255,.13);border-top-color:rgba(255,255,255,.19);background:rgba(7,12,20,.46);backdrop-filter:blur(30px) saturate(116%);-webkit-backdrop-filter:blur(30px) saturate(116%);box-shadow:0 18px 54px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(255,255,255,.025)}
+    .content-panel{background:rgba(5,8,12,.22)}
+    .source-row:hover,.source-row.is-selected,.library-card:hover{background:rgba(12,18,28,.58);border-color:rgba(255,255,255,.20)}
+    :root{--muted:#b0aaa7;--muted-2:#918b88}
+    .title-row h1{font-size:clamp(30px,3vw,40px);line-height:1.08;letter-spacing:-.035em}.title-row p{font-size:15px;line-height:1.5;color:var(--muted)}
+    .source-title{font-size:15px;line-height:1.35}.source-meta{font-size:12px;color:var(--muted-2)}
+    .ai-label,.eyebrow,.card-kicker{font-size:11px;letter-spacing:.08em;color:var(--muted-2)}.summary-copy{font-size:14px;line-height:1.6}
+    .suggestion,.quick-pill,.select-control,.toolbar-search input{font-size:12px;color:var(--muted)}
+    .library-card h3{font-size:17px;line-height:1.35}.library-card p{font-size:14px;line-height:1.6;color:rgba(255,243,240,.82)}
+  </style>
+  <style id="responsive-product-refinement">
+    .library-shell { grid-template-rows: 1fr; }
+    .library-grid { max-height: 100vh; }
+    .toolbar { align-items: center; gap: 8px; }
+    .toolbar-search { min-width: 220px; }
+    .filter-cluster { display: flex; align-items: center; gap: 6px; }
+    .filter-control { display: block; min-width: 112px; }
+    .filter-control .select-control { width: 100%; height: 40px; min-width: 0; max-width: none; padding: 0 30px 0 12px; border: 1px solid rgba(255,255,255,.13); border-radius: 10px; background-color: rgba(12,18,28,.58); box-shadow: inset 0 1px 0 rgba(255,255,255,.06); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); color: var(--fg); font-size: 12px; }
+    .row-menu { display: none !important; }
+    .source-row { grid-template-columns: 48px minmax(0,1fr) 108px; }
+    .source-progress { display: grid; gap: 6px; min-width: 96px; }
+    .source-progress-track { height: 5px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.10); }
+    .source-progress-fill { display: block; height: 100%; border-radius: inherit; }
+    .source-progress.read .source-progress-fill { width: 100%; background: var(--success); }
+    .source-progress.unread .source-progress-fill { width: 28%; background: var(--warning); }
+    .source-progress.reading .source-progress-fill { width: 62%; background: var(--blue); }
+    .source-progress-value { color: var(--muted-2); font-size: 10px; text-align: right; }
+    .composer-wrap { display: grid; gap: 10px; }
+    .composer-wrap .ai-section { margin: 0; }
+    .composer-actions { display: flex; align-items: center; width: 100%; }
+    .composer-actions-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+    .voice-btn { width: 31px; height: 31px; }
+    .composer-actions > .icon-btn,
+    .composer-actions-right .voice-btn { border: 1px solid transparent; border-radius: 10px; background: transparent; box-shadow: none; }
+    .composer-actions > .icon-btn:hover,
+    .composer-actions-right .voice-btn:hover { border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.12); color: var(--fg); box-shadow: none; }
+    @media (min-width: 821px) {
+      .ai-panel { position: sticky; top: 0; height: 100vh; max-height: none; overflow: hidden; }
+      .ai-content { display: flex; flex: 1; flex-direction: column; min-height: 0; height: calc(100% - 62px); overflow: hidden; }
+      .ai-content .ai-section { flex: none; }
+      .ai-content .composer-wrap { margin-top: auto; }
+    }
+    @media (min-width: 821px) and (max-width: 1024px) {
+      .library-grid { grid-template-columns: minmax(0,1fr) 300px; }
+      .content-header,
+      .toolbar,
+      .source-list,
+      .view-grid { padding-left: 20px; padding-right: 20px; }
+    }
+    @media (max-width: 820px) {
+      body { overflow-x: hidden; }
+      .library-shell { min-height: 100dvh; }
+      .library-grid { max-height: none; min-height: 100dvh; }
+      .content-panel { min-height: 100dvh; overflow: visible; }
+      .content-header { padding-top: 18px; }
+      .title-row { align-items: flex-start; }
+      .tabs { scroll-snap-type: x proximity; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab { min-height: 44px; scroll-snap-align: start; }
+      .toolbar { position: sticky; top: 0; z-index: 8; background: rgba(7,12,20,.82); backdrop-filter: blur(24px); }
+      .toolbar-search { flex-basis: 100%; }
+      .filter-cluster { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); width: 100%; }
+      .filter-control { min-width: 0; }
+      .toolbar-search input,
+      .select-control { height: 44px; }
+      .source-list,
+      .view-grid { overflow: visible; padding-bottom: 92px; }
+      .source-row { min-height: 88px; grid-template-columns: 42px minmax(0,1fr) 88px; }
+      .source-row .row-menu { display: none; }
+      .library-card { min-height: 190px; }
+      .ai-panel { left: 8px; right: 8px; bottom: 8px; max-height: calc(100dvh - 16px); }
+      button,
+      a,
+      .icon-btn { min-height: 44px; }
+    }
+    @media (max-width: 500px) {
+      .content-header,
+      .toolbar,
+      .source-list,
+      .view-grid { padding-left: 14px; padding-right: 14px; }
+      .title-row h1 { font-size: 30px; }
+      .toolbar { align-items: stretch; }
+      .filter-cluster { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .select-control { min-width: 0; }
+      .source-row { grid-template-columns: 38px minmax(0,1fr); gap: 10px; }
+      .source-progress { grid-column: 2; width: 100%; }
+      .source-meta { gap: 5px 8px; }
+      .detail-view { padding: 20px 14px 96px; }
+      .detail-actions { flex-direction: column; }
+      .detail-action { width: 100%; }
+    }
+  </style>
+  <style id="frosted-glass-theme">
+    .library-topbar,.content-panel,.ai-panel,.source-row,.library-card,.community-sidebar,.community-main,.community-composer,.composer,.mention-picker,.detail-view {
+      background: rgba(8,20,42,.48);
+      border-color: rgba(255,255,255,.20);
+      border-top-color: rgba(255,255,255,.34);
+      -webkit-backdrop-filter: blur(34px) saturate(138%);
+      backdrop-filter: blur(34px) saturate(138%);
+      box-shadow: 0 22px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(255,255,255,.05);
+    }
+    .content-panel { background: rgba(8,20,42,.34); }
+    .source-row,.library-card,.community-composer,.composer {
+      background: rgba(10,24,48,.56);
+    }
+    .toolbar-search input,.select-control,.toolbar .icon-btn,.suggestion,.filter-control .select-control {
+      background: rgba(10,24,48,.56);
+      border-color: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+      -webkit-backdrop-filter: blur(26px) saturate(135%);
+      backdrop-filter: blur(26px) saturate(135%);
+    }
+    .source-row:hover,.source-row.is-selected,.library-card:hover,.suggestion:hover {
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.28);
+      color: #fff;
+    }
+    .library-card p,.source-row p { color: rgba(236,242,250,.84); }
+  </style>
+<style>
+  /* One shared canvas: utility chrome does not create a second surface. */
+  html, body { background: transparent !important; background-image: none !important; }
+  body::before, body::after { content: none !important; display: none !important; }
+  .library-shell { background: transparent !important; background-image: none !important; }
+  .library-topbar { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; box-shadow: none !important; }
+</style>
+<style id="library-main-framed-surface">
+  /* Match Community: Library and the agent share one inset workspace. */
+  .library-grid {
+    height: calc(100% - 16px) !important;
+    margin: 8px !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+    border-radius: 18px !important;
+    background: rgba(7,12,20,.46) !important;
+    box-shadow: 0 18px 54px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.12), inset 0 -1px 0 rgba(255,255,255,.025) !important;
+    overflow: hidden !important;
+  }
+  .content-panel {
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-right: 1px solid rgba(255,255,255,.13) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+  .ai-panel {
+    border-left: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+  @media (max-width: 820px) {
+    .library-grid {
+      height: calc(100% - 20px) !important;
+      margin: 10px !important;
+      border-radius: 18px !important;
+    }
+    .content-panel {
+      height: 100% !important;
+      min-height: 0 !important;
+      border-right: 0 !important;
+    }
+  }
+</style>
+<style id="library-document-agent-glass">
+  /* Documents and agent controls use one translucent glass material ladder. */
+  .source-row,
+  .library-card {
+    background: rgba(8,20,42,.28) !important;
+    border-color: rgba(255,255,255,.14) !important;
+    border-top-color: rgba(255,255,255,.24) !important;
+    backdrop-filter: blur(24px) saturate(124%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(124%) !important;
+    box-shadow: 0 14px 34px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(255,255,255,.025) !important;
+  }
+  .source-row:hover,
+  .library-card:hover {
+    background: rgba(255,255,255,.12) !important;
+    border-color: rgba(255,255,255,.27) !important;
+    box-shadow: 0 18px 38px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.16), inset 0 -1px 0 rgba(255,255,255,.04) !important;
+    transform: translateY(-2px) !important;
+  }
+  .source-row.is-selected {
+    background: rgba(255,255,255,.15) !important;
+    border-color: rgba(255,243,240,.38) !important;
+    box-shadow: 0 18px 40px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 0 0 1px rgba(255,255,255,.05) !important;
+    transform: translateY(-1px) !important;
+  }
+  .source-row:active,
+  .library-card:active {
+    transform: translateY(0) scale(.995) !important;
+  }
+  .empty-card {
+    background: rgba(8,20,42,.16) !important;
+    border-style: dashed !important;
+  }
+  .empty-card:hover {
+    background: rgba(255,255,255,.09) !important;
+  }
+  .ai-panel .suggestion {
+    background: rgba(8,20,42,.26) !important;
+    border-color: rgba(255,255,255,.13) !important;
+    color: var(--muted) !important;
+    backdrop-filter: blur(22px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(120%) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 8px 22px rgba(0,0,0,.12) !important;
+  }
+  .ai-panel .suggestion:hover,
+  .ai-panel .suggestion:focus-visible {
+    background: rgba(255,255,255,.11) !important;
+    border-color: rgba(255,255,255,.25) !important;
+    color: var(--fg) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 12px 28px rgba(0,0,0,.18) !important;
+  }
+  .ai-panel .composer {
+    margin-bottom: 12px !important;
+    background: rgba(8,20,42,.34) !important;
+    border-color: rgba(255,255,255,.18) !important;
+    backdrop-filter: blur(26px) saturate(126%) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(126%) !important;
+    box-shadow: 0 16px 38px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.13), inset 0 -1px 0 rgba(255,255,255,.025) !important;
+  }
+  .ai-panel .composer:focus-within {
+    border-color: rgba(255,255,255,.28) !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.16), 0 0 0 3px rgba(255,255,255,.06) !important;
+  }
+  .ai-panel .context-chip {
+    background: rgba(255,255,255,.10) !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+  }
+  .ai-panel .send-btn {
+    box-shadow: 0 6px 16px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.20) !important;
+  }
+</style>
+<style id="community-theme-alignment">
+  /* Library uses the same dark translucent glass material as Community. */
+  .source-row,
+  .library-card,
+  .ai-panel .suggestion,
+  .ai-panel .composer,
+  .community-sidebar,
+  .community-main,
+  .community-composer {
+    background: rgba(8,20,42,.48) !important;
+    border-color: rgba(255,255,255,.20) !important;
+    border-top-color: rgba(255,255,255,.34) !important;
+    backdrop-filter: blur(34px) saturate(138%) !important;
+    -webkit-backdrop-filter: blur(34px) saturate(138%) !important;
+    box-shadow: 0 22px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(255,255,255,.05) !important;
+  }
+  .source-row:hover,
+  .library-card:hover,
+  .ai-panel .suggestion:hover,
+  .ai-panel .suggestion:focus-visible {
+    background: rgba(255,255,255,.14) !important;
+    border-color: rgba(255,255,255,.28) !important;
+    color: var(--fg) !important;
+  }
+  .source-row.is-selected {
+    background: rgba(255,243,240,.12) !important;
+    border-color: rgba(255,243,240,.30) !important;
+    box-shadow: 0 22px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.20), inset 0 0 0 1px rgba(255,255,255,.05) !important;
+  }
+  .ai-panel .composer:focus-within {
+    border-color: rgba(255,255,255,.30) !important;
+    box-shadow: 0 22px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.20), 0 0 0 3px rgba(255,255,255,.06) !important;
+  }
+  </style>
+  <style id="library-home-chat-glass">
+    /* Mid-level transparent glass for the internal Library surface. */
+    html, body, .library-shell, .library-grid { background: transparent !important; background-image: none !important; }
+    .content-panel {
+      background: rgba(8,20,42,.34) !important;
+      backdrop-filter: blur(18px) saturate(118%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(118%) !important;
+      border: 1px solid rgba(255,255,255,.16) !important;
+      border-top-color: rgba(255,255,255,.24) !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12) !important;
+    }
+    .ai-panel {
+      background: rgba(8,20,42,.48) !important;
+      border-color: rgba(255,255,255,.16) !important;
+      border-top-color: rgba(255,255,255,.24) !important;
+      backdrop-filter: blur(18px) saturate(118%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(118%) !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12) !important;
+    }
+    .source-row,
+    .library-card,
+    .ai-panel .suggestion,
+    .ai-panel .composer,
+    .detail-view {
+      background: rgba(8,20,42,.34) !important;
+      border-color: rgba(255,255,255,.16) !important;
+      border-top-color: rgba(255,255,255,.24) !important;
+      backdrop-filter: blur(18px) saturate(118%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(118%) !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.12) !important;
+    }
+    .source-row:hover,
+    .source-row.is-selected,
+    .library-card:hover,
+    .ai-panel .suggestion:hover,
+    .ai-panel .suggestion:focus-visible {
+      background: rgba(255,255,255,.12) !important;
+      border-color: rgba(255,255,255,.24) !important;
+      color: var(--fg) !important;
+    }
+    .ai-panel .composer { background: rgba(10,24,48,.48) !important; }
+    .toolbar-search input,
+    .select-control,
+    .ai-panel input,
+    .ai-panel textarea {
+      background: rgba(10,24,48,.42) !important;
+      border-color: rgba(255,255,255,.16) !important;
+    }
+  </style>
+  <style id="pdf-document-viewer">
+    .document-view{display:none;flex:1;min-height:0;flex-direction:column;overflow:hidden;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+    .document-view.is-open{display:flex}
+    .content-panel.is-document-open .content-header,.content-panel.is-document-open .toolbar,.content-panel.is-document-open #sourceList{display:none!important}
+    .content-panel.is-document-open{background:rgba(7,10,14,.28);box-shadow:none}
+    .document-view-head{display:flex;align-items:center;gap:10px;min-height:64px;padding:10px 22px;border-bottom:1px solid rgba(255,255,255,.14);flex:none;background:rgba(8,20,42,.28)}
+    .document-back,.document-tool{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;border:1px solid rgba(255,255,255,.14);border-radius:11px;background:rgba(255,255,255,.06);color:var(--fg);transition:background .15s var(--ease),border-color .15s var(--ease),transform .15s var(--ease)}
+    .document-back{gap:7px;padding:0 11px;font-size:12px;color:var(--muted)}
+    .document-back:hover,.document-tool:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.28);color:var(--fg)}
+    .document-back:active,.document-tool:active{transform:translateY(1px)}
+    .document-back svg,.document-tool svg{width:16px;height:16px}
+    .document-heading{min-width:0;display:flex;align-items:center;gap:9px;margin-left:3px}
+    .document-heading strong{max-width:min(42vw,520px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:600}
+    .document-badge{padding:4px 7px;border:1px solid rgba(139,188,255,.28);border-radius:7px;background:rgba(139,188,255,.12);color:var(--blue);font-size:10px;font-weight:700;letter-spacing:.08em}
+    .document-tools{display:flex;align-items:center;gap:6px;margin-left:auto}
+    .document-tool{width:40px;padding:0;color:var(--muted)}
+    .document-tool.is-active{background:rgba(242,189,114,.16);border-color:rgba(242,189,114,.42);color:var(--warning)}
+    .document-zoom{min-width:48px;color:var(--muted);font-size:11px;text-align:center;font-variant-numeric:tabular-nums}
+    .document-view-port{flex:1;min-height:0;overflow:auto;padding:28px 32px 42px;background:rgba(3,8,16,.12)}
+    .document-paper{position:relative;width:100%;min-height:100%;padding:34px 42px 42px;background:#fff;color:#1d1d1f;transform-origin:top left;transition:transform .15s var(--ease);box-shadow:0 18px 42px rgba(0,0,0,.24)}
+    .document-page-intro{max-width:760px;padding:0 0 26px;margin:0 auto 26px;border-bottom:1px solid #d2d2d7}
+    .document-page-intro span{display:block;margin-bottom:10px;color:#6e6e73;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .document-page-intro h2{margin:0 0 10px;color:#1d1d1f;font-size:clamp(24px,3vw,38px);line-height:1.08;letter-spacing:-.035em}
+    .document-page-intro p{margin:0;max-width:62ch;color:#6e6e73;font-size:14px;line-height:1.55}
+    .document-page-frame{max-width:960px;margin:0 auto}
+    .document-text{margin:0;padding:28px 30px;min-height:760px;border:1px solid #d2d2d7;border-radius:4px;background:#fff;color:#1d1d1f;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.68 "SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;box-shadow:0 8px 22px rgba(0,0,0,.10)}
+    .document-text.is-loading{color:#6e6e73;font-style:italic}
+    .document-highlight-layer{display:none;position:absolute;inset:10px;border:3px solid rgba(242,189,114,.72);border-radius:10px;pointer-events:none;z-index:2;box-shadow:0 0 0 7px rgba(242,189,114,.12),inset 0 0 34px rgba(242,189,114,.08)}
+    .document-paper.is-highlighted .document-highlight-layer{display:block}
+    @media(max-width:820px){.document-heading strong{max-width:34vw}.document-back{padding:0;width:40px}.document-back span{display:none}.document-view-head{padding:10px 14px}.document-view-port{padding:16px 14px 28px}.document-paper{padding:24px 18px 28px}.document-text{min-height:560px;padding:22px 18px;font-size:12px}}
+    @media(prefers-reduced-motion:reduce){.document-back,.document-tool,.document-paper{transition:none}}
+  </style>
+</head>
+<body>
+  <div class="library-shell" data-od-id="library-page">
+    <div class="library-grid">
+      <main class="content-panel" data-od-id="library-content">
+        <div class="content-header"><div class="title-row"><div><h1>Library</h1><p>Keep your research, notes, and conversations in one place.</p></div></div></div>
+        <div class="toolbar" data-od-id="library-filters"><div class="toolbar-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="listSearch" aria-label="Search files" placeholder="Search files" oninput="render()" /></div><div class="filter-cluster" aria-label="Library filters"><label class="filter-control"><select id="typeFilter" class="select-control" aria-label="Filter by format" onchange="render()"><option value="all">All types</option><option value="pdf">PDF</option><option value="article">Article</option><option value="video">Video</option></select></label><label class="filter-control"><select id="statusFilter" class="select-control" aria-label="Filter by progress" onchange="render()"><option value="all">All progress</option><option value="Unread">Unread</option><option value="Reading">Reading</option><option value="Read">Read</option></select></label><label class="filter-control"><select id="sortSelect" class="select-control" aria-label="Sort files" onchange="render()"><option value="recent">Recent first</option><option value="alpha">A–Z</option><option value="status">By progress</option></select></label></div><button class="icon-btn upload-action" aria-label="Upload source: PDF, DOCS, or PPT" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span>Upload</span></button><input id="fileInput" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" hidden onchange="handleUpload(this)" /></div>
+        <div id="sourceList" class="source-list" aria-live="polite"></div>
+        <section id="documentView" class="document-view" data-od-id="library-document-view" aria-label="PDF document viewer" hidden></section>
+      </main>
+      <aside id="aiPanel" class="ai-panel" data-od-id="library-ai-panel"><div class="ai-header"><button class="icon-btn" aria-label="Toggle AI panel" onclick="toggleAI()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16"/></svg></button><strong>Profeshare AI</strong><span class="spacer"></span><button class="icon-btn" aria-label="New chat" onclick="newChat()">+</button><button class="icon-btn" aria-label="Chat history">◷</button></div><div class="ai-content"><div class="composer-wrap"><section class="ai-section"><div class="ai-label">Suggested questions</div><div id="suggestions" class="suggestions"></div></section><div class="composer"><div id="contextRow" class="context-row"></div><textarea id="chatInput" rows="2" placeholder="Ask this context a question…" oninput="updateComposer()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea><div class="composer-bottom composer-actions"><button class="icon-btn" aria-label="Add context" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><div class="composer-actions-right"><button class="icon-btn voice-btn" aria-label="Voice input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg></button><button id="sendBtn" class="send-btn" aria-label="Send message" onclick="sendChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-4 14-3-6-7-1Z"/></svg></button></div></div></div></div></div></aside>
+      <section id="detailView" class="detail-view" data-od-id="library-detail-view" aria-live="polite"></section>
+      <button id="mobileAI" class="mobile-ai-toggle icon-btn" aria-label="Open AI panel" onclick="toggleMobileAI()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></button>
+    </div>
+  </div>
+  <script>
+    const themes=[{id:'all',name:'All themes',count:24,children:[]},{id:'human-ai',name:'Human–AI Interaction',count:12,children:[{id:'trust',name:'Transparency & Trust',count:8,children:[{id:'citation',name:'Citation systems',count:3},{id:'explainable',name:'Explainable AI',count:4}]},{id:'agency',name:'User Control & Agency',count:4}]},{id:'research',name:'AI-Enhanced Research',count:7,children:[]},{id:'collab',name:'Collaborative AI Systems',count:5,children:[]},{id:'convo',name:'Conversational AI',count:6,children:[]},{id:'ux',name:'AI UX Frameworks',count:4,children:[]}];
+    let sources=[
+      {id:1,type:'pdf',title:'ProtoAI--Model-Informed-Prototyping-for-AI-Powered-Interfaces.pdf',author:'Attached project document',date:'PDF',status:'Reading',themes:['trust','agency'],summary:'A research document saved in the Library for focused reading and discussion with Profeshare AI.'},
+      {id:2,type:'ppt',title:'Guidelines for Human–AI Interaction',author:'Saleema Amershi et al. · CHI 2019',date:'May 2019',status:'Read',themes:['trust','ux'],summary:'Eighteen research-backed guidelines for setting expectations, supporting efficient interaction, and helping people recover when an AI system is wrong.'},
+      {id:3,type:'docs',title:'People + AI Guidebook',author:'Google PAIR',date:'Guidebook v2',status:'Reading',themes:['research','agency'],summary:'A practical set of methods and examples for designing AI experiences around user needs, mental models, feedback, and control.'},
+      {id:4,type:'ppt',title:'Guidelines for Human-AI Interaction',author:'Microsoft Research · HAX Toolkit',date:'2019',status:'Read',themes:['explainable','trust'],summary:'A presentation-ready summary of the guidelines that help teams make AI capabilities, limitations, and failure recovery visible in the interface.'},
+      {id:5,type:'pdf',title:'Model Cards for Model Reporting',author:'Mitchell et al. · FAT* 2019',date:'Jan 2019',status:'Unread',themes:['agency','trust'],summary:'Proposes model cards as short documentation artifacts that describe intended use, evaluation conditions, limitations, and performance across groups.'},
+      {id:6,type:'pdf',title:'Datasheets for Datasets',author:'Gebru et al. · CACM 2021',date:'Dec 2021',status:'Read',themes:['collab','research'],summary:'A documentation framework for recording how datasets were created, what they contain, how they should be used, and where they may fail.'},
+      {id:7,type:'docs',title:'Guidelines for Human-AI Interaction: Eighteen Best Practices',author:'Microsoft Research',date:'Mar 5, 2019',status:'Read',themes:['trust','explainable'],summary:'An accessible overview of the CHI 2019 guidelines, including making system capabilities clear and supporting users when AI suggestions are wrong.'},
+      {id:8,type:'docs',title:'AI RMF Playbook',author:'NIST',date:'2023',status:'Reading',themes:['convo','ux','trust'],summary:'A companion resource to the AI RMF with suggested actions and questions for governing, mapping, measuring, and managing AI risks.'},
+      {id:9,type:'docs',title:'People + AI: Designing with Human-Centered AI',author:'Google PAIR',date:'Guidebook overview',status:'Read',themes:['citation','agency'],summary:'A concise entry point to human-centered AI design patterns covering user goals, explainability, feedback loops, and responsible product decisions.'}
+    ];
+    const notes=[{title:'Keep provenance visible at the point of use',preview:'For AI-assisted research, the useful trust signal is a source trail that can be inspected without leaving the answer.',source:'Artificial Intelligence Risk Management Framework (AI RMF 1.0)',tags:['trust','provenance'],time:'Today · 09:14'},{title:'Make uncertainty actionable',preview:'If a system may be wrong, pair the limitation with a clear next step: verify, edit the context, or ask for another view.',source:'Guidelines for Human–AI Interaction',tags:['agency','UX'],time:'Yesterday · 16:40'},{title:'A citation should explain relevance',preview:'Save the claim, the source, and the reason the source matters together so a future reader can retrace the decision.',source:'People + AI Guidebook',tags:['citation','research'],time:'Jun 19 · 11:08'},{title:'Document intended use before evaluation',preview:'Model documentation is more useful when intended users, supported tasks, and known limitations are written down before testing.',source:'Model Cards for Model Reporting',tags:['trust','evaluation'],time:'Jun 15 · 14:26'},{title:'Dataset context is part of the evidence',preview:'Record how a dataset was collected and where it may underrepresent people or situations before drawing conclusions from it.',source:'Datasheets for Datasets',tags:['data','collaboration'],time:'Jun 12 · 10:02'}];
+    const annotations=[{source:'Artificial Intelligence Risk Management Framework (AI RMF 1.0)',excerpt:'Trustworthiness is not a single property of an AI system.',comment:'Use this as the opening frame for the risk review: reliability, transparency, privacy, and fairness need to be considered together.',time:'Today · 10:42',context:'NIST report · page 12'},{source:'Guidelines for Human–AI Interaction',excerpt:'Make clear how well the system can do what it can do.',comment:'This maps cleanly to the empty state and loading copy in the assistant experience.',time:'Yesterday · 16:08',context:'CHI 2019 paper · guideline 2'},{source:'People + AI Guidebook',excerpt:'Design for appropriate trust, not maximum trust.',comment:'Pair this with the source preview so users can inspect evidence before accepting a recommendation.',time:'Jun 18 · 13:20',context:'Guidebook · trust chapter'},{source:'Datasheets for Datasets',excerpt:'Datasets are created and used by people, and people make mistakes.',comment:'Link this annotation to the dataset provenance checklist in the research workspace.',time:'Jun 11 · 09:55',context:'CACM 2021 · documentation section'}];
+    const chats=[{title:'How should Profeshare show evidence?',snippet:'We compared NIST’s risk framing with the People + AI guidance and agreed that source context should stay visible beside the answer.',attached:3,time:'Today · 11:20',people:'Sam · Maya · Profeshare AI'},{title:'Reviewing the research workspace',snippet:'The next pass is to make uncertainty actionable: let people inspect, edit, and ask follow-up questions without losing context.',attached:5,time:'Yesterday · 17:05',people:'Sam · Research group'},{title:'Model documentation checklist',snippet:'We mapped model cards and datasheets into a lightweight review flow for intended use, limitations, and evaluation evidence.',attached:2,time:'Jun 17 · 14:12',people:'Sam · Priya'},{title:'Design critique: trust without clutter',snippet:'The group preferred compact source previews, clear status labels, and a single next action over dense explanation panels.',attached:4,time:'Jun 10 · 09:38',people:'Design critique · 4 participants'}];
+    const communityChannels=[{id:'product-design-team',label:'product-design-team',private:true,unread:3,description:'Design decisions, reviews, and handoffs'},{id:'ai-research',label:'ai-research',private:false,unread:0,description:'Papers, methods, and source reviews'},{id:'career-circle',label:'career-circle',private:true,unread:1,description:'Mentoring and opportunity sharing'}];
+    const communityPeople=[{id:'sush',name:'Susheen',initials:'S',avatar:'avatar-rose',status:'online',preview:'standup notes'},{id:'reesha',name:'Reesha',initials:'R',avatar:'avatar-green',status:'online',preview:'reviewing the brief'},{id:'akshay',name:'Akshay Padmashali',initials:'A',avatar:'avatar-blue',status:'away',preview:'shared a research link'},{id:'vishnu',name:'Vishnu Bhat',initials:'V',avatar:'avatar-violet',status:'offline',preview:'last active yesterday'},{id:'musa',name:'Musa',initials:'M',avatar:'avatar-amber',status:'online',preview:'left a comment'}];
+    let communityMessages=[{id:1,channel:'product-design-team',person:'Sam',initials:'S',avatar:'avatar-blue',time:'1:11 PM',text:'The task is approved — I added the latest <a class="community-link" href="#" onclick="event.preventDefault()">ClickUp handoff</a> for everyone to review.',mentions:['Susheen','Vishnu Bhat'],replies:2,reaction:'👍 1'},{id:2,channel:'product-design-team',person:'Susheen',initials:'S',avatar:'avatar-rose',time:'11:32 AM',text:'<span class="community-mention">@here</span> standup? ',mentions:[],replies:0,reaction:''},{id:3,channel:'product-design-team',person:'Sam',initials:'S',avatar:'avatar-blue',time:'5:14 PM',text:'Hey <span class="community-mention">@Musa</span> created the first design draft. Please check the streaming execution visibility notes and add feedback before review.',mentions:['Vishnu Bhat'],replies:1,reaction:'✅ 2'},{id:4,channel:'ai-research',person:'Reesha',initials:'R',avatar:'avatar-green',time:'10:20 AM',text:'I saved the NIST AI RMF section on mapping trustworthiness considerations to product decisions.',mentions:[],replies:3,reaction:'📌 1'},{id:5,channel:'career-circle',person:'Akshay',initials:'A',avatar:'avatar-blue',time:'Yesterday',text:'Sharing a role brief for a frontend engineer who can own accessible interaction patterns and design system handoff.',mentions:[],replies:2,reaction:''}];
+    communityMessages.push({id:6,channel:'dm-akshay',person:'Akshay Padmashali',initials:'A',avatar:'avatar-blue',time:'9:42 AM',text:'I reviewed the role brief. The accessibility requirements look good — I can share a frontend systems checklist this afternoon.',mentions:[],replies:0,reaction:'👍 1'},{id:7,channel:'dm-reesha',person:'Reesha',initials:'R',avatar:'avatar-green',time:'Yesterday',text:'I added two papers to the shared research context. Let me know if the evidence trail is clear enough for the first review.',mentions:[],replies:1,reaction:''},{id:8,channel:'dm-sush',person:'Susheen',initials:'S',avatar:'avatar-rose',time:'Monday',text:'Can we review the product-design-team handoff after standup?',mentions:[],replies:0,reaction:''});
+    let communityState={channel:'product-design-team',memberOpen:false,subtab:'Messages'};
+    let state={tab:'Sources',theme:'all',openId:1,aiCollapsed:false,context:['ProtoAI--Model-Informed-Prototyping-for-AI-Powered-Interfaces.pdf'],expandedThemes:{'human-ai':true,trust:true},documentZoom:1,documentHighlighted:false};
+    const icons={pdf:'▧',article:'◈',video:'▷'};
+    const tabData={Sources:sources.length,Notes:notes.length,Annotations:annotations.length,Chats:chats.length};
+    function renderThemes(){const list=document.getElementById('themeList');list.innerHTML=themes.map(t=>`<div><button class="theme-row ${state.theme===t.id?'is-active':''}" aria-expanded="${!!state.expandedThemes[t.id]}" onclick="selectTheme('${t.id}')" oncontextmenu="themeMenu(event,'${t.id}')"><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg><span>${t.name}</span><span class="theme-count">${t.count}</span></button>${t.children.length?`<div class="subthemes ${state.expandedThemes[t.id]?'is-open':''}">${t.children.map(c=>`<div><button class="subtheme ${state.theme===c.id?'is-active':''}" onclick="selectTheme('${c.id}')">${c.name}<span style="float:right;color:var(--muted-2);font-size:11px">${c.count}</span></button>${c.children?.length?`<div style="padding-left:12px">${c.children.map(s=>`<button class="subtheme ${state.theme===s.id?'is-active':''}" onclick="selectTheme('${s.id}')">${s.name}<span style="float:right;color:var(--muted-2);font-size:11px">${s.count}</span></button>`).join('')}</div>`:''}</div>`).join('')}</div>`:''}</div>`).join('');}
+    function selectTheme(id){state.theme=id;state.expandedThemes[id]=!state.expandedThemes[id]||id==='all';renderThemes();render();}
+    function themeMenu(e,id){e.preventDefault();const t=themes.find(x=>x.id===id);const action=prompt(`Theme “${t.name}”: type rename, delete, or cancel`,'cancel');if(action==='rename'){const next=prompt('New theme name',t.name);if(next)t.name=next}if(action==='delete'&&id!=='all'){themes.splice(themes.findIndex(x=>x.id===id),1);state.theme='all'}renderThemes();render()}
+    function addTheme(){const name=prompt('Name your new theme');if(name){themes.push({id:'theme-'+Date.now(),name,count:0,children:[]});renderThemes()}}
+    function renderTabs(){}
+    function setTab(tab){state.tab=tab;renderTabs();const toolbar=document.querySelector('.toolbar');toolbar.classList.toggle('is-community',tab==='Community');const input=document.getElementById('listSearch');input.placeholder=tab==='Community'?'Search messages and channels':'Search this view';render()}
+    function currentCommunityChannel(){if(communityState.channel.startsWith('dm-')){const person=communityPeople.find(p=>`dm-${p.id}`===communityState.channel)||communityPeople[0];return {id:communityState.channel,label:person.name,private:true,unread:0,description:`Direct message · ${person.status}`}}return communityChannels.find(c=>c.id===communityState.channel)||communityChannels[0]}
+    function setCommunityChannel(id){communityState.channel=id;communityState.memberOpen=false;communityState.subtab='Messages';render()}
+    function openCommunityDM(id){setCommunityChannel(`dm-${id}`)}
+    function setCommunitySubtab(tab){communityState.subtab=tab;render()}
+    function toggleCommunityMembers(){communityState.memberOpen=!communityState.memberOpen;render()}
+    function sendCommunityMessage(){const input=document.getElementById('communityComposerInput');const text=input&&input.value.trim();if(!text)return;communityMessages.push({id:Date.now(),channel:communityState.channel,person:'Sam',initials:'S',avatar:'avatar-blue',time:'Now',text:text.replaceAll('<','&lt;').replaceAll('>','&gt;'),mentions:[],replies:0,reaction:''});render()}
+    function renderCommunity(){const root=document.getElementById('sourceList');const query=(document.getElementById('listSearch').value||document.getElementById('globalSearch').value||'').toLowerCase();const channel=currentCommunityChannel();const messages=communityMessages.filter(m=>m.channel===channel.id&&(!query||`${m.person} ${m.text}`.toLowerCase().includes(query)));const visiblePeople=communityPeople.filter(p=>!query||`${p.name} ${p.preview}`.toLowerCase().includes(query));root.className='community-view';root.innerHTML=`<aside class="community-sidebar" data-od-id="community-conversation-rail"><div class="community-workspace"><span class="community-workspace-mark">P</span><span>Profeshare community</span><button aria-label="Community options">⌄</button></div><input id="communitySearch" class="community-search" aria-label="Search community" placeholder="Find a conversation…" value="${query.replaceAll('"','&quot;')}" oninput="document.getElementById('listSearch').value=this.value;render()"><div class="community-nav"><button onclick="setCommunitySubtab('Threads')">◌ <span>Threads</span></button><button onclick="setCommunitySubtab('Huddles')">◉ <span>Huddles</span></button><button onclick="setCommunitySubtab('Drafts & sent')">✎ <span>Drafts & sent</span></button></div><div class="community-section-label"><span>Public groups</span><button aria-label="Add public group" onclick="quickAction('Create a public community group')">+</button></div><div>${communityChannels.filter(c=>!c.private).map(c=>`<button class="community-channel ${communityState.channel===c.id?'is-active':''}" onclick="setCommunityChannel('${c.id}')"><span class="channel-icon">#</span><span>${c.label}</span>${c.unread?`<span class="channel-badge">${c.unread}</span>`:''}</button>`).join('')}</div><div class="community-section-label"><span>Private groups</span><button aria-label="Add private group" onclick="quickAction('Create a private community group')">+</button></div><div>${communityChannels.filter(c=>c.private).map(c=>`<button class="community-channel ${communityState.channel===c.id?'is-active':''}" onclick="setCommunityChannel('${c.id}')"><span class="channel-icon">⌑</span><span>${c.label}</span>${c.unread?`<span class="channel-badge">${c.unread}</span>`:''}</button>`).join('')}</div><div class="community-section-label"><span>Direct messages</span><button aria-label="Start direct message" onclick="quickAction('Start a direct message')">+</button></div><div class="community-dm-list">${visiblePeople.map(p=>`<button class="community-person ${communityState.channel===`dm-${p.id}`?'is-active':''}" onclick="openCommunityDM('${p.id}')"><span class="community-avatar small ${p.avatar}">${p.initials}</span><span>${p.name}</span><span class="community-person-status" style="background:${p.status==='online'?'var(--success)':p.status==='away'?'var(--warning)':'var(--muted-2)'}"></span></button>`).join('')||'<div class="community-empty"><div><strong>No conversations found</strong><span>Try another name or channel.</span></div></div>'}</div></aside><section class="community-main" data-od-id="community-channel"><header class="community-channel-head"><span class="community-avatar ${channel.private?'avatar-violet':'avatar-blue'}">${channel.private?'⌑':'#'}</span><div class="community-channel-title"><h2>${channel.label}</h2><p>${channel.description}</p></div><div class="community-channel-actions"><button class="community-member-button" onclick="toggleCommunityMembers()">♧ ${communityPeople.length+3}</button><button class="community-icon-button" aria-label="Start huddle" onclick="quickAction('Start a huddle in ${channel.label}')">◉</button><button class="community-icon-button" aria-label="Search channel" onclick="document.getElementById('listSearch').focus()">⌕</button><button class="community-icon-button" aria-label="More channel actions">•••</button></div>${communityState.memberOpen?`<div class="community-members"><strong>Members · ${communityPeople.length+3}</strong>${communityPeople.slice(0,4).map(p=>`<div class="community-member-row"><span class="community-avatar small ${p.avatar}">${p.initials}</span><span>${p.name}</span><span>${p.status}</span></div>`).join('')}</div>`:''}</header><nav class="community-subnav" aria-label="Community channel sections">${['Messages','Add canvas','Files & links','Pins'].map(t=>`<button class="${communityState.subtab===t?'is-active':''}" onclick="setCommunitySubtab('${t}')">${t}</button>`).join('')}</nav>${communityState.subtab==='Messages'?`<div class="community-messages">${messages.length?`<div class="community-date"><span>Today</span></div>${messages.map(m=>`<article class="community-message"><span class="community-avatar ${m.avatar}">${m.initials}</span><div class="community-message-body"><div class="community-message-meta"><strong>${m.person}</strong><time>${m.time}</time></div><p>${m.text}</p><div class="community-message-tools">${m.reaction?`<button class="community-reaction" onclick="quickAction('React to ${m.person}\'s message')">${m.reaction}</button>`:''}${m.replies?`<button class="community-thread-link" onclick="quickAction('Open ${m.replies} replies from ${m.person}')">${m.replies} ${m.replies===1?'reply':'replies'} · View thread</button>`:''}</div></div></article>`).join('')}`:'<div class="community-empty"><div><strong>No messages match this search</strong><span>Start the conversation with the composer below.</span></div></div>'}</div><div class="community-composer" data-od-id="community-composer"><div class="community-composer-tools"><button aria-label="Bold"><strong>B</strong></button><button aria-label="Italic"><em>I</em></button><button aria-label="Add link">↗</button><button aria-label="Mention">@</button><button aria-label="Add emoji">☺</button></div><textarea id="communityComposerInput" rows="2" placeholder="Message ${channel.private?'':'#'}${channel.label}" oninput="document.getElementById('communitySend').classList.toggle('is-ready',!!this.value.trim())" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendCommunityMessage()}"></textarea><div class="community-composer-bottom"><span>Press Enter to send · Shift + Enter for a new line</span><button id="communitySend" class="community-send" aria-label="Send message" onclick="sendCommunityMessage()">➤</button></div></div>`:`<div class="community-empty"><div><strong>${communityState.subtab}</strong><span>Shared ${communityState.subtab.toLowerCase()} for ${channel.label} will appear here.</span></div></div>`}</section>`}
+    function filteredSources(){const q=(document.getElementById('listSearch').value||document.getElementById('globalSearch')?.value||'').toLowerCase();const type=document.getElementById('typeFilter').value,status=document.getElementById('statusFilter').value;let rows=sources.filter(s=>(state.theme==='all'||s.themes.includes(state.theme))&&(!q||`${s.title} ${s.author} ${s.summary}`.toLowerCase().includes(q))&&(type==='all'||s.type===type)&&(status==='all'||s.status===status));const sort=document.getElementById('sortSelect').value;if(sort==='alpha')rows.sort((a,b)=>a.title.localeCompare(b.title));if(sort==='status')rows.sort((a,b)=>a.status.localeCompare(b.status));return rows}
+    function render(){const root=document.getElementById('sourceList');if(state.tab!=='Sources'){const data=state.tab==='Notes'?notes:state.tab==='Annotations'?annotations:chats;root.innerHTML=data.length?data.map(item=>state.tab==='Notes'?`<article class="source-row"><div class="source-type article">✎</div><div class="source-main"><span class="source-title">${item.title}</span><div class="source-meta"><span>${item.preview}</span><span>· ${item.source}</span><span>· ${item.time}</span></div></div><span class="status">${item.tags.join(' · ')}</span><button class="row-menu" aria-label="More options">•••</button></article>`:state.tab==='Annotations'?`<article class="source-row"><div class="source-type">❝</div><div class="source-main"><span class="source-title">${item.excerpt}</span><div class="source-meta"><span>${item.comment}</span><span>· ${item.source}</span><span>· ${item.time}</span></div></div><span class="status">Open</span><button class="row-menu" aria-label="More options">•••</button></article>`:`<article class="source-row" onclick="quickAction('${item.title.replaceAll("'","\\'")}')"><div class="source-type video">◌</div><div class="source-main"><span class="source-title">${item.title}</span><div class="source-meta"><span>${item.snippet}</span><span>· ${item.attached} sources</span><span>· ${item.time}</span></div></div><span class="status reading">Resume</span><button class="row-menu" aria-label="More options">•••</button></article>`).join(''):'<div class="empty-state"><div><strong>No items here yet</strong><span>Save research or create a note to build this view.</span></div></div>';return}const rows=filteredSources();root.innerHTML=rows.length?rows.map(s=>`<article class="source-row ${state.openId===s.id?'is-selected':''}" data-od-id="library-source-${s.id}" onclick="openSource(${s.id})"><input type="checkbox" aria-label="Select ${s.title}" onclick="event.stopPropagation()"><div class="source-type ${s.type}">${formatSource(s.type)}</div><div class="source-main"><span class="source-title" title="${s.title}">${s.title}</span><div class="source-meta"><span>${s.author}</span><span>· ${s.date}</span><span>· ${formatSource(s.type)}</span></div></div><span class="status ${s.status.toLowerCase()}">${s.status}</span><button class="row-menu" aria-label="More options" onclick="event.stopPropagation();sourceMenu(${s.id})">•••</button></article>`).join(''):'<div class="empty-state"><div><strong>No matching sources</strong><span>Try another theme, type, or search term.</span></div></div>';updateAI()}
+    function openSource(id){state.openId=id;const source=sources.find(s=>s.id===id);if(!source)return;if(source.status==='Unread')source.status='Reading';if(!state.context.includes(source.title))state.context=[source.title];if(id===1){openDocument(id);return}render();updateAI()}
+    function openDocument(id){const source=sources.find(s=>s.id===id);const panel=document.querySelector('.content-panel');const viewer=document.getElementById('documentView');if(!source||!panel||!viewer)return;state.openId=id;state.documentZoom=1;state.documentHighlighted=false;viewer.hidden=false;viewer.classList.add('is-open');panel.classList.add('is-document-open');viewer.innerHTML=`<header class="document-view-head"><button class="document-back" data-od-id="library-document-back" aria-label="Back to Library" onclick="closeDocument()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg><span>Back</span></button><div class="document-heading"><span class="document-badge">PDF</span><strong title="${source.title}">${source.title}</strong></div><div class="document-tools" aria-label="Document tools"><button class="document-tool" id="documentHighlight" data-od-id="library-document-highlight" aria-label="Highlight document" aria-pressed="false" title="Highlight document" onclick="toggleDocumentHighlight()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 15 9-9 6 6-9 9H4v-6Z"/><path d="m13 6 2-2 6 6-2 2M7 20h13"/></svg></button><button class="document-tool" data-od-id="library-document-zoom-out" aria-label="Zoom out" title="Zoom out" onclick="changeDocumentZoom(-.1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></button><span id="documentZoom" class="document-zoom" aria-live="polite">100%</span><button class="document-tool" data-od-id="library-document-zoom-in" aria-label="Zoom in" title="Zoom in" onclick="changeDocumentZoom(.1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button></div></header><div id="documentViewPort" class="document-view-port"><article id="documentPaper" class="document-paper"><div class="document-page-intro"><span>Page view · scroll to read</span><h2>${source.title}</h2><p>Extracted text from the attached PDF, presented as a plain white reading page inside Library.</p></div><div class="document-page-frame"><div class="document-highlight-layer" aria-hidden="true"></div><pre id="documentText" class="document-text is-loading" aria-label="Extracted PDF text">Loading document text…</pre></div></article></div>`;loadDocumentText();updateAI()}
+    async function loadDocumentText(){const output=document.getElementById('documentText');if(!output)return;try{const response=await fetch('ProtoAI--Model-Informed-Prototyping-for-AI-Powered-Interfaces.txt');if(!response.ok)throw new Error('Document text unavailable');output.textContent=await response.text();output.classList.remove('is-loading')}catch(error){output.textContent='The extracted document text could not be loaded in this preview.';output.classList.remove('is-loading')}}
+    function closeDocument(){const panel=document.querySelector('.content-panel');const viewer=document.getElementById('documentView');if(!panel||!viewer)return;panel.classList.remove('is-document-open');viewer.classList.remove('is-open');viewer.hidden=true;viewer.innerHTML='';render()}
+    function changeDocumentZoom(delta){state.documentZoom=Math.min(1.4,Math.max(.8,Number((state.documentZoom+delta).toFixed(1))));const paper=document.getElementById('documentPaper');const readout=document.getElementById('documentZoom');if(!paper||!readout)return;paper.style.transform=`scale(${state.documentZoom})`;paper.style.width=`${100/state.documentZoom}%`;readout.textContent=`${Math.round(state.documentZoom*100)}%`}
+    function toggleDocumentHighlight(){state.documentHighlighted=!state.documentHighlighted;document.getElementById('documentPaper')?.classList.toggle('is-highlighted',state.documentHighlighted);const button=document.getElementById('documentHighlight');if(button){button.classList.toggle('is-active',state.documentHighlighted);button.setAttribute('aria-pressed',String(state.documentHighlighted))}}
+    function sourceMenu(id){const s=sources.find(x=>x.id===id);const action=prompt(`“${s.title}”: type rename, tag, delete, or cancel`,'cancel');if(action==='rename'){const n=prompt('New title',s.title);if(n)s.title=n}if(action==='delete')sources=sources.filter(x=>x.id!==id);render()}
+    function updateAI(){if(state.tab==='Community'){const channel=currentCommunityChannel();const isDM=communityState.channel.startsWith('dm-');const questions=[`Summarize the latest decisions in ${isDM?'this conversation':'#'+channel.label}.`,`Turn this conversation into a short project update.`];document.getElementById('suggestions').innerHTML=questions.map(q=>`<button class="suggestion" onclick="quickAction('${q.replaceAll("'","\\'")}')">${q}</button>`).join('');document.getElementById('contextRow').innerHTML=`<span class="context-chip">${isDM?'DM ':'#'}${channel.label}</span>`;return}const source=sources.find(s=>s.id===state.openId)||sources[0];const questions=[`What are the strongest claims in “${source.title}”?`,`How does this source connect to user control and trust?`];document.getElementById('suggestions').innerHTML=questions.map(q=>`<button class="suggestion" onclick="quickAction('${q.replaceAll("'","\\'")}')">${q}</button>`).join('');document.getElementById('contextRow').innerHTML=state.context.map((c,i)=>`<span class="context-chip">${c}<button aria-label="Remove ${c}" onclick="removeContext(${i})">×</button></span>`).join('')}
+    function quickAction(text){document.getElementById('chatInput').value=text;updateComposer();document.getElementById('chatInput').focus()}
+    function updateComposer(){const ready=document.getElementById('chatInput').value.trim();document.getElementById('sendBtn').classList.toggle('is-ready',!!ready)}
+    function sendChat(){const input=document.getElementById('chatInput');if(!input.value.trim())return;input.value='';input.placeholder='Ask another question…';updateComposer()}
+    function addContext(label){if(!state.context.includes(label))state.context.push(label);document.getElementById('mentionPicker').classList.add('hidden');updateAI()}
+    function removeContext(i){state.context.splice(i,1);updateAI()}
+    function newChat(){state.context=[];document.getElementById('chatInput').value='';updateAI();updateComposer()}
+    function toggleAI(){state.aiCollapsed=!state.aiCollapsed;document.getElementById('aiPanel').classList.toggle('is-collapsed',state.aiCollapsed)}
+    function toggleMobileAI(){document.getElementById('aiPanel').classList.toggle('is-mobile-open')}
+    function addSource(){document.getElementById('fileInput').click()}
+    function handleUpload(input){if(input.files[0]){const file=input.files[0],extension=file.name.split('.').pop().toLowerCase(),type=extension==='pdf'?'pdf':['doc','docx'].includes(extension)?'docs':['ppt','pptx'].includes(extension)?'ppt':'article';sources.unshift({id:Date.now(),type,title:file.name,author:'Uploaded by Sam',date:'Just now',status:'Unread',themes:[],summary:'A newly added source ready for review. Open it to start a focused conversation with Profeshare AI.'});tabData.Sources=sources.length;renderTabs();render()}}
+    function openDetail(kind,item){
+      const detail=document.getElementById('detailView');
+      const title=kind==='source'?item.title:kind==='note'?item.title:kind==='annotation'?item.source:item.title;
+      const meta=kind==='source'?`${item.author} · ${item.date} · ${item.status}`:kind==='note'?`${item.source} · ${item.time}`:kind==='annotation'?`${item.time} · ${item.source}`:`${item.attached} saved sources · ${item.time}`;
+      const body=kind==='source'?`<p>${item.summary}</p><p>This source is saved in your Library for comparison with related work. Use the AI panel to break down the argument, identify evidence, or turn it into a study guide.</p>`:kind==='note'?`<p>${item.preview}</p><p>This note is linked to <strong>${item.source}</strong>. Revisit it alongside the original source whenever you need to verify the idea or expand the research trail.</p>`:kind==='annotation'?`<p><em>“${item.excerpt}”</em></p><p>${item.comment}</p><p>This annotation is anchored to <strong>${item.source}</strong> so the context stays attached to the original document, video, or meeting recording.</p>`:`<p>${item.snippet}</p><p>This saved conversation keeps its source context and can be resumed with Profeshare AI at any time.</p>`;
+      detail.innerHTML=`<button class="detail-back" onclick="closeDetail()">← Back to Library</button><div class="detail-context">${kind==='source'?'Saved source':kind==='note'?'Library note':kind==='annotation'?'Annotation context':'Saved chat'}</div><h2>${title}</h2><div class="detail-meta">${meta}</div><div class="detail-body">${body}</div><div class="detail-actions"><button class="detail-action" onclick="quickAction('Summarize this ${kind}')">Ask Profeshare AI</button><button class="detail-action" onclick="closeDetail()">Close</button></div>`;
+      detail.classList.add('is-open');
+    }
+    function closeDetail(){document.getElementById('detailView').classList.remove('is-open')}
+    function formatSource(type){return type==='pdf'?'PDF':type==='docs'?'DOCS':type==='ppt'?'PPT':'ARTICLE'}
+    function render(){
+      const root=document.getElementById('sourceList');
+      const query=(document.getElementById('listSearch').value||document.getElementById('globalSearch')?.value||'').toLowerCase();
+      if(state.tab==='Community'){renderCommunity();updateAI();return}
+      if(state.tab==='Sources'){
+        const type=document.getElementById('typeFilter').value,status=document.getElementById('statusFilter').value;
+        let rows=sources.filter(s=>(!query||`${s.title} ${s.author} ${s.summary}`.toLowerCase().includes(query))&&(type==='all'||s.type===type)&&(status==='all'||s.status===status));
+        const sort=document.getElementById('sortSelect').value;if(sort==='alpha')rows.sort((a,b)=>a.title.localeCompare(b.title));if(sort==='status')rows.sort((a,b)=>a.status.localeCompare(b.status));
+        root.className='source-list';root.innerHTML=rows.length?rows.map(s=>{const progress=s.status==='Read'?100:s.status==='Reading'?62:28;return `<article class="source-row ${state.openId===s.id?'is-selected':''}" onclick="openSource(${s.id})"><div class="source-type ${s.type}">${formatSource(s.type)}</div><div class="source-main"><span class="source-title" title="${s.title}">${s.title}</span><div class="source-meta"><span>${s.author}</span><span>· ${s.date}</span><span>· ${formatSource(s.type)}</span></div></div><div class="source-progress ${s.status.toLowerCase()}" aria-label="${s.status}, ${progress}% complete"><span class="source-progress-track"><span class="source-progress-fill"></span></span><span class="source-progress-value">${progress}%</span></div></article>`}).join(''):'<div class="empty-state"><div><strong>No matching sources</strong><span>Try another search or format filter.</span></div></div>';
+      } else {
+        const data=state.tab==='Notes'?notes:state.tab==='Annotations'?annotations:chats;
+        const filtered=data.filter(item=>!query||JSON.stringify(item).toLowerCase().includes(query));
+        root.className='view-grid';
+        if(state.tab==='Notes')root.innerHTML=filtered.map(n=>`<article class="library-card" onclick='openDetail("note",${JSON.stringify(n)})'><span class="card-arrow">↗</span><div class="card-kicker">Note</div><h3>${n.title}</h3><p>${n.preview}</p><div class="card-footer"><span>${n.time}</span><span class="tag">${n.source}</span></div></article>`).join('')+`<article class="library-card empty-card" onclick="quickAction('Create a new Library note')"><div><strong>+ New note</strong><span>Capture an idea from your research</span></div></article>`;
+        if(state.tab==='Annotations')root.innerHTML=filtered.map(a=>`<article class="library-card" onclick='openDetail("annotation",${JSON.stringify(a)})'><span class="card-arrow">↗</span><div class="card-kicker">${a.context}</div><h3>${a.excerpt}</h3><p>${a.comment}</p><div class="card-footer"><span>${a.time}</span><span class="tag">${a.source}</span></div></article>`).join('')+`<article class="library-card empty-card" onclick="quickAction('Add an annotation to a saved source')"><div><strong>+ New annotation</strong><span>Attach a thought to a source</span></div></article>`;
+        if(state.tab==='Chats')root.innerHTML=filtered.map(c=>`<article class="library-card" onclick='openDetail("chat",${JSON.stringify(c)})'><span class="card-arrow">↗</span><div class="card-kicker">${c.people}</div><h3>${c.title}</h3><p>${c.snippet}</p><div class="card-footer"><span>${c.time}</span><span class="tag">${c.attached} saved sources</span></div></article>`).join('')+`<article class="library-card empty-card" onclick="newChat()"><div><strong>+ Save a chat</strong><span>Pin a useful conversation here</span></div></article>`;
+      }
+      updateAI();
+    }
+    const typeFilter=document.getElementById('typeFilter');typeFilter.innerHTML='<option value="all">All formats</option><option value="pdf">PDF</option><option value="docs">Docs</option><option value="ppt">PPT Slides</option>';typeFilter.onchange=render;
+    state.tab='Sources';document.getElementById('listSearch').placeholder='Search files';render();updateAI();
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.netlify/
+.file-versions/
+.od-skills/
+*.artifact.json
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
