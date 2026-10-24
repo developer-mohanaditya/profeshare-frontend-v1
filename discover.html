@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>if(window.parent!==window||new URLSearchParams(location.search).get("embedded")==="1")document.documentElement.setAttribute("data-workspace-embedded","");</script>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Discover — Profeshare AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -523,6 +524,7 @@
     color: var(--fg) !important;
   }
 </style>
+<link rel="stylesheet" href="styles/v170-audit.css">
 </head>
 <body>
   <button class="discover-menu" type="button" aria-label="Open Profeshare menu" onclick="if (window.parent !== window) { window.parent.postMessage({ type: 'open-profeshare-menu' }, '*'); } else { history.back(); }">Menu</button>
@@ -538,7 +540,7 @@
       <article class="feature-card image-card card-ask" data-od-id="feature-card-ask-ai">
         <div class="card-topline">
           <p class="card-label">Profeshare AI Sparks Curiosity</p>
-          <a class="arrow-link" href="/ask-ai" aria-label="Open Profeshare AI">↗</a>
+          <a class="arrow-link" target="_top" href="profeshare-glass-chat-layout-20.html?page=home" aria-label="Open Profeshare AI">↗</a>
         </div>
         <div class="ask-copy">
           <h2 class="ask-title">Profeshare AI turns your doubts into total confidence</h2>
@@ -552,34 +554,35 @@
             <h2 class="community-title">Community</h2>
             <p class="community-subhead">Learn together. Grow further.</p>
           </div>
-          <a class="glass-pill" href="/community">Discover More</a>
+          <a class="glass-pill" target="_top" href="profeshare-glass-chat-layout-20.html?page=community">Discover More</a>
         </div>
       </article>
 
       <article class="feature-card image-card card-jobs" data-od-id="feature-card-job-landing">
         <div class="card-topline">
           <h2 class="jobs-copy">Job-landing-first tools for creative minds.</h2>
-          <a class="arrow-link" href="/jobs" aria-label="Explore jobs">↗</a>
+          <a class="arrow-link" target="_top" href="profeshare-glass-chat-layout-20.html?page=home" aria-label="Explore jobs">↗</a>
         </div>
       </article>
 
       <article class="feature-card image-card card-papers" data-od-id="feature-card-papers">
-        <a class="arrow-link paper-arrow" href="/articles" aria-label="Explore papers and articles">↗</a>
+        <a class="arrow-link paper-arrow" target="_top" href="profeshare-glass-chat-layout-20.html?page=library" aria-label="Explore papers and articles">↗</a>
         <div class="paper-content">
           <p class="paper-label">Grounded in Research</p>
-          <h2 class="paper-stat">7,000+ Papers</h2>
-          <p class="paper-copy">Dynamic suggestions based on students profiles.</p>
+          <h2 class="paper-stat">Research Library</h2>
+          <p class="paper-copy">Keep useful research close to your work.</p>
         </div>
       </article>
 
       <article class="feature-card card-commitment" data-od-id="feature-card-job-commitment">
         <p class="commitment-copy">From early job exploration to learning, trust the hard work. Landing a job means commitment.</p>
-        <a class="card-link" href="/ask-ai">Check Applications Status</a>
+        <a class="card-link" target="_top" href="profeshare-glass-chat-layout-20.html?page=home">Explore your next application</a>
       </article>
     </section>
   </main>
   <script>
     if (window.parent !== window) document.documentElement.classList.add('is-embedded');
   </script>
+<script src="scripts/v170-accessibility.js"></script>
 </body>
 </html>

@@ -1,0 +1,503 @@
+/* Shared v170 repair layer. Existing palette and compact conversation preserved. */
+:root {
+ --audit-text:var(--fg, oklch(.96 .012 45));
+ --audit-surface:oklch(.19 .018 250 / .94);
+ --audit-secondary:oklch(.86 .005 250);
+ --audit-focus:oklch(.84 .065 65);
+ --audit-space-xs:4px; --audit-space-sm:8px; --audit-space-md:16px; --audit-space-lg:24px;
+ --audit-label:14px; --audit-input:16px; --audit-target:44px;
+ --audit-radius:var(--fora-radius-md,16px);
+ --audit-shadow:0 12px 32px oklch(0 0 0 / .2);
+ --background-shade:oklch(0 0 0 / .22);
+ --shared-glass-tint:oklch(0 0 0 / .22);
+ --shared-glass-top:rgba(255,255,255,.09);
+ --shared-glass-bottom:rgba(8,20,42,.24);
+ --shared-glass-border:rgba(255,255,255,.16);
+ --shared-glass-edge:rgba(255,255,255,.24);
+ --shared-glass-blur:blur(18px) saturate(118%);
+ --shared-glass-shadow:0 16px 40px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.12);
+}
+/* The top-level document owns the only canvas. Embedded pages reveal it. */
+html {background:linear-gradient(var(--background-shade),var(--background-shade)) center / cover fixed no-repeat,var(--bg,oklch(.16 0 0)) url('../image.png') center / cover fixed no-repeat!important;}
+body {background:transparent!important;}
+html[data-workspace-embedded] {background:transparent!important;background-image:none!important;}
+html[data-workspace-embedded] body {background:transparent!important;background-image:none!important;}
+body::before,body::after,.app-background::before,.app-background::after,.home-background::before,.home-background::after {content:none!important;}
+.app-background,.home-background {background:none!important;filter:none!important;backdrop-filter:none!important;}
+*,*::before,*::after {box-sizing:border-box;}
+:where(button,a,input,select,textarea,[role="button"]) {touch-action:manipulation;}
+:where(button,a[role="button"],.icon-btn,.arrow-link,.glass-pill,.card-link,.document-tool) {min-height:var(--audit-target);min-width:var(--audit-target);}
+:where(input,select,textarea,[contenteditable="true"]) {font-size:var(--audit-input)!important;max-width:100%;}
+:where(button,a,input,textarea,select,[tabindex]):focus-visible {outline:2px solid var(--audit-focus)!important;outline-offset:3px!important;box-shadow:none!important;}
+.chat-input-box .chat-input-field:focus-visible {outline:none!important;box-shadow:none!important;border:0!important;}
+:where(button,a):hover {color:var(--audit-text);}
+:where(button):disabled {cursor:not-allowed;opacity:.45;}
+:where(h1,h2,h3,p,.source-name,.document-heading,.channel-head,.message-text) {overflow-wrap:anywhere;}
+:where(.main-content-surface,.content-panel,.ai-panel,.conversation,.workspace,.shell,.library-grid,.bento-grid) {min-width:0;min-height:0;}
+:where(.feedback-modal,.calendar-modal-card,[role="dialog"]) {max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;}
+:where(.feedback-modal-backdrop,.calendar-modal) {padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom));}
+.audit-skip {position:fixed;z-index:9999;top:8px;left:8px;transform:translateY(-200%);background:var(--audit-surface);color:var(--audit-text);padding:12px 16px;border-radius:var(--audit-radius);}
+.audit-skip:focus {transform:none;}
+.mobile-day-label {display:none;}
+.calendar-week-head,.calendar-week-grid,.calendar-month-grid {min-width:0!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;}
+.calendar-day-column,.calendar-month-cell {min-width:0;}
+.calendar-event,.calendar-month-event {overflow-wrap:anywhere;white-space:normal;}
+.calendar-control,.calendar-view-button,.mini-calendar-day {min-height:var(--audit-target);}
+.calendar-day-column .calendar-event-list {min-width:0;}
+.ps-markdown pre {white-space:pre-wrap;overflow-wrap:anywhere;}
+.ps-markdown table {width:100%;table-layout:fixed;}
+.ps-markdown td,.ps-markdown th {overflow-wrap:anywhere;}
+.ps-response,.chat-message-bubble {border:0!important;}
+.main-content-surface {height:100dvh;}
+.home-empty-state {overflow-y:auto;min-height:0;}
+.app-sidebar {padding-top:env(safe-area-inset-top);}
+:where(.document-view-head,.detail-actions,.toolbar,.filter-cluster) {flex-wrap:wrap;}
+:where(.source-name,.document-heading) {white-space:normal;}
+:where(.text-white\/30,.text-white\/40,.text-white\/50) {color:var(--audit-secondary)!important;}
+@media(min-width:721px) and (max-width:1024px){
+ .app-sidebar.is-expanded {width:224px!important;}
+ .calendar-week-head,.calendar-week-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+ .calendar-week-head {display:none!important;}
+ .mobile-day-label {display:block;font-size:var(--audit-label);padding:var(--audit-space-sm);color:var(--audit-text);}
+}
+@media(max-width:720px){
+ .app-sidebar {inset-inline:max(8px,env(safe-area-inset-left)) max(8px,env(safe-area-inset-right))!important;}
+ .app-sidebar > .px-4 > button,.app-sidebar > .flex-shrink-0 button {min-width:var(--audit-target)!important;}
+ .app-sidebar > .px-4 {gap:0!important;}
+ .app-sidebar > .flex-shrink-0 {width:52px!important;}
+ .main-content-surface {padding-bottom:calc(88px + env(safe-area-inset-bottom))!important;}
+ .calendar-week-head {display:none!important;}
+ .calendar-week-grid,.calendar-month-grid {grid-template-columns:1fr!important;min-width:0!important;}
+ .mobile-day-label {display:block;font-size:var(--audit-label);padding:var(--audit-space-sm);color:var(--audit-text);}
+ .calendar-day-column {min-height:0!important;border-right:0!important;}
+ .calendar-month-cell {display:block!important;}
+ .calendar-month-cell-number,.calendar-month-event,.agenda-item-project {font-size:var(--audit-label)!important;}
+ .calendar-shell,.calendar-unified {height:auto!important;}
+ .calendar-page {overflow-y:auto;}
+ .calendar-event-title,.calendar-event-time {white-space:normal!important;}
+ .timeline-event-card {position:relative!important;top:auto!important;left:auto!important;width:100%!important;height:auto!important;min-height:78px;margin-bottom:var(--audit-space-sm);}
+ .timeline-canvas {height:auto!important;margin:0!important;}
+ .timeline-hour,.timeline-now-line {display:none;}
+ .timeline-events-layer {position:relative!important;inset:auto!important;}
+ .home-primary-stack {max-width:100%;padding-inline:var(--audit-space-md);}
+ .home-greeting {font-size:clamp(28px,7vw,40px)!important;text-wrap:balance;}
+ .cli-status {font-size:12px!important;}
+ .chat-input-box .chat-controls-right {gap:var(--audit-space-xs)!important;}
+ .library-grid,.bento-grid {grid-template-columns:1fr!important;}
+ .document-view-head {align-items:flex-start;}
+ .document-paper {width:100%!important;min-width:0!important;}
+ .source-row {flex-wrap:wrap;min-width:0;}
+ .source-meta {flex-wrap:wrap;}
+ .thread-panel {width:100%!important;max-width:100%!important;}
+ .page-shell,.page,.library-shell {padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after {animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+/* Keep every conversation reachable on narrow screens. */
+@media(max-width:720px){
+ .rail {overflow-y:auto!important;max-height:164px!important;}
+ .rail #directMessages,.rail-nav {display:block!important;}
+ .rail #publicGroups,.rail #privateGroups {display:grid!important;grid-template-columns:1fr;overflow:visible!important;}
+ .rail .channel {min-height:var(--audit-target)!important;min-width:0!important;width:100%!important;white-space:normal;}
+ .channel-title p {max-width:100%!important;white-space:normal!important;overflow:visible!important;}
+ .channel-head {flex-wrap:wrap;height:auto;padding-block:var(--audit-space-sm);}
+ .feature-card {height:auto!important;min-height:320px;}
+ .is-embedded .discover-menu {display:none;}
+}
+
+/* Chat typing fields stay border-free in every interaction state. */
+:is(.chat-input-box,.composer,.community-composer,.ps-editor) :where(textarea,input,[contenteditable="true"]),
+:is(.chat-input-box,.composer,.community-composer,.ps-editor) :where(textarea,input,[contenteditable="true"]):is(:focus,:focus-visible,:active),
+#chatInput:is(:focus,:focus-visible,:active),#communityComposerInput:is(:focus,:focus-visible,:active) {
+ border:0!important;outline:none!important;box-shadow:none!important;
+}
+:is(.chat-input-box,.composer,.community-composer):focus-within {
+ border-color:transparent!important;outline:none!important;
+}
+
+/* Unfilled sidebar disclosure control in both expanded and collapsed states. */
+.app-sidebar .sidebar-toggle,
+.app-sidebar .sidebar-toggle:is(:hover,:active,:focus,:focus-visible) {
+ background:transparent!important;border:0!important;box-shadow:none!important;
+ color:var(--audit-text)!important;min-width:var(--audit-target);min-height:var(--audit-target);
+}
+
+/* One header grid keeps the logo and disclosure aligned without offsets. */
+@media(min-width:721px){
+ .app-sidebar > .sidebar-header {
+  display:grid;grid-template-columns:minmax(0,1fr) var(--audit-target);
+  align-items:center;gap:var(--audit-space-sm);padding:var(--audit-space-md);
+  min-height:calc(var(--audit-target) + 2 * var(--audit-space-md));
+ }
+ .app-sidebar.is-collapsed > .sidebar-header {
+  grid-template-columns:var(--audit-target);justify-content:center;
+  padding:var(--audit-space-md);min-height:calc(var(--audit-target) + 2 * var(--audit-space-md));
+ }
+ .app-sidebar.is-collapsed .sidebar-header .sidebar-brand {display:none;}
+ .app-sidebar .sidebar-header .sidebar-toggle {
+  position:static;transform:none;margin:0;padding:0;
+  width:var(--audit-target);height:var(--audit-target);flex-shrink:0;
+ }
+ .app-sidebar .sidebar-header .sidebar-logo {display:block;max-width:100%;}
+ .app-sidebar > .px-4,.app-sidebar.is-collapsed > .px-4 {margin-top:0;}
+}
+
+/* Keep layout regions transparent; glass belongs to the controls and modules. */
+.main-content-surface,.main-content-surface > main,
+html[data-workspace-embedded] :is(.page-shell,.library-shell,.library-grid,.shell,.page,.workspace) {
+ background:transparent!important;background-image:none!important;
+ box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+.main-content-surface > main > iframe {background:transparent;border:0;}
+/* Shared Community-inspired glass across the prototype's interface surfaces. */
+html body :is(
+ .app-sidebar,.home-sidebar-layout > .app-sidebar,
+ .glass,.input-glass,.chat-input-box.input-glass,.ps-response,
+ .calendar-shell,.calendar-unified,.calendar-modal-card,.feedback-modal,.context-menu-panel,
+ .rail,.conversation,.members,.thread-panel,.composer,
+ .community-rail,.community-main,.community-composer,.community-members,
+ .library-card,.content-panel,.ai-panel,.detail-view
+) {
+ background-color:var(--shared-glass-tint)!important;
+ background-image:linear-gradient(145deg,var(--shared-glass-top),var(--shared-glass-bottom))!important;
+ border-color:var(--shared-glass-border)!important;
+ border-top-color:var(--shared-glass-edge)!important;
+ backdrop-filter:var(--shared-glass-blur)!important;
+ -webkit-backdrop-filter:var(--shared-glass-blur)!important;
+ box-shadow:var(--shared-glass-shadow)!important;
+}
+.app-sidebar,.home-sidebar-layout > .app-sidebar {border-radius:24px;}
+/* Typing fields reveal their composer's glass rather than adding a dark layer. */
+html body :is(.composer,.community-composer,.chat-input-box) textarea {
+ background:transparent!important;
+}
+html body :is(.composer,.community-composer,.chat-input-box):focus-within {border-color:transparent!important;}
+/* The disclosure remains unfilled within the restored glass navigation. */
+html body .app-sidebar .sidebar-toggle {background:transparent!important;box-shadow:none!important;}
+@media(max-width:720px){
+ .app-sidebar,.home-sidebar-layout > .app-sidebar {border-radius:20px;}
+}
+
+/* Community uses the shared material while retaining its original geometry. */
+[data-od-id="community-page"] .composer {border-radius:15px;}
+[data-od-id="community-page"] .composer:focus-within {border-color:transparent!important;}
+
+/* Calendar: one glass workspace, transparent structural bands, readable event tiles. */
+html body .calendar-page :is(
+ .calendar-header,.calendar-toolbar,.calendar-filters,.calendar-board,
+ .calendar-context-rail,.mini-calendar,.calendar-rail-section,.calendar-agenda,
+ .calendar-week-head,.calendar-day-head,.calendar-day-column,.calendar-month-cell,
+ .calendar-day-timeline,.timeline-date-strip
+) {
+ background:transparent!important;box-shadow:none!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ border-color:var(--shared-glass-border)!important;
+}
+html body .calendar-page :is(.calendar-toolbar,.calendar-filters) {padding-block:16px;}
+html body .calendar-page :is(
+ .calendar-control,.calendar-view-switcher,.calendar-input,.calendar-select,
+ .reminder-item,.up-next-actions button,.calendar-event,.calendar-month-event,
+ .timeline-event-card,.agenda-item,.calendar-event-preview
+),html body .calendar-modal :is(.calendar-input,.calendar-select,.calendar-modal-detail) {
+ background-color:var(--shared-glass-tint)!important;
+ background-image:linear-gradient(145deg,var(--shared-glass-top),var(--shared-glass-bottom))!important;
+ border-color:var(--shared-glass-border)!important;
+ box-shadow:inset 0 1px 0 var(--shared-glass-edge)!important;
+ color:var(--fg)!important;
+ border-radius:var(--audit-radius);
+}
+html body .calendar-page :is(.calendar-event,.calendar-month-event,.timeline-event-card,.agenda-item) {
+ padding:16px;line-height:1.5;
+}
+html body .calendar-page :is(.calendar-control,.calendar-view-button,.reminder-item,.up-next-actions button,.calendar-event,.calendar-month-event,.agenda-item):hover {
+ background-color:oklch(1 0 0 / .15)!important;color:var(--fg)!important;
+}
+html body .calendar-page .calendar-view-button.is-active {
+ background:oklch(1 0 0 / .20)!important;color:var(--fg)!important;
+ box-shadow:inset 0 0 0 1px var(--shared-glass-edge)!important;
+}
+html body .calendar-page :is(.calendar-input,.calendar-select) {min-height:44px;font-size:16px;}
+html body .calendar-page :is(.calendar-event-title,.agenda-item-title,.timeline-event-title) {font-weight:600;white-space:normal;overflow-wrap:anywhere;}
+html body .calendar-page :is(.calendar-event-time,.calendar-month-cell-number,.agenda-item-project,.timeline-event-details) {color:var(--audit-secondary)!important;}
+html body .calendar-page :is(.calendar-input,.calendar-select)::placeholder {color:var(--audit-secondary);opacity:1;}
+html body .calendar-page .calendar-select option {background:var(--audit-surface);color:var(--fg);}
+
+/* New Chat has one consistent solid treatment in both navigation sizes. */
+html body #primary-sidebar [data-od-id="new-chat-button"],
+html body #primary-sidebar [data-od-id="new-chat-button"]:is(:hover,:active,:focus-visible) {
+ background:oklch(1 0 0)!important;color:oklch(0 0 0)!important;
+ border-color:oklch(1 0 0)!important;box-shadow:none!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+html body #primary-sidebar [data-od-id="new-chat-button"] :is(span,svg) {color:oklch(0 0 0)!important;}
+
+html body #primary-sidebar [data-od-id="new-chat-button"] {
+ transition:none!important;transform:none!important;filter:none!important;opacity:1!important;
+}
+/* Library inherits the same glass material as navigation, chat and Calendar. */
+html body [data-od-id="library-page"] :is(
+ .content-panel,.ai-panel,.panel,.source-row,.library-card,.suggestion,.composer,
+ .detail-view,.document-view-head,.document-tool,.document-back,
+ .toolbar-search input,.top-search input,.select-control,.quick-pill,.row-menu
+) {
+ background-color:var(--shared-glass-tint)!important;
+ background-image:linear-gradient(145deg,var(--shared-glass-top),var(--shared-glass-bottom))!important;
+ border-color:var(--shared-glass-border)!important;
+ border-top-color:var(--shared-glass-edge)!important;
+ backdrop-filter:var(--shared-glass-blur)!important;
+ -webkit-backdrop-filter:var(--shared-glass-blur)!important;
+ box-shadow:var(--shared-glass-shadow)!important;
+ color:var(--fg)!important;
+}
+html body [data-od-id="library-page"] :is(.toolbar,.filter-cluster,.document-view-port,.composer textarea,.ai-panel textarea) {
+ background:transparent!important;box-shadow:none!important;
+}
+html body [data-od-id="library-page"] :is(.source-row,.library-card,.suggestion,.quick-pill,.document-tool,.document-back):hover,
+html body [data-od-id="library-page"] .source-row.is-selected {
+ background-color:oklch(1 0 0 / .15)!important;color:var(--fg)!important;
+}
+html body [data-od-id="library-page"] .composer:focus-within {border-color:transparent!important;}
+html body [data-od-id="library-page"] :is(input,textarea)::placeholder {color:var(--audit-secondary);opacity:1;}
+html body [data-od-id="library-page"] select option {background:var(--audit-surface);color:var(--fg);}
+/* Profile is one continuous glass sheet; internal sections use dividers only. */
+.profile-redesigned {display:flex;flex-direction:column;flex:1;height:100%;min-height:0;overflow:hidden;}
+.profile-scroll {flex:1;min-height:0;overflow-y:auto;padding:clamp(16px,3vw,40px);}
+.profile-unified {width:100%;max-width:1080px;margin:0 auto;border-radius:24px;overflow:hidden;}
+.profile-cover {display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(24px,4vw,48px);}
+.profile-identity {display:flex;align-items:center;gap:24px;min-width:0;}
+.profile-avatar {display:grid;place-items:center;width:80px;height:80px;flex:none;border-radius:50%;background:oklch(1 0 0 / .12);border:1px solid var(--shared-glass-border);font:600 28px var(--font-display);}
+.profile-heading-copy {min-width:0;}
+.profile-kicker {font-size:12px;letter-spacing:.1em;color:var(--audit-secondary);margin-bottom:12px;}
+.profile-cover h1 {font:600 clamp(28px,3vw,40px)/1.12 var(--font-display);letter-spacing:-.025em;margin:0 0 8px;text-wrap:balance;}
+.profile-headline {font-size:17px;line-height:1.5;margin:0;}
+.profile-subtitle {font-size:14px;color:var(--audit-secondary);margin:6px 0 0;line-height:1.5;}
+.profile-header-side {display:flex;flex-direction:column;align-items:flex-end;gap:16px;flex:none;}
+.profile-status {font-size:12px;padding:6px 12px;border-radius:var(--fora-radius-pill);border:1px solid var(--shared-glass-border);color:var(--audit-secondary);}
+.profile-divider-section {display:grid;grid-template-columns:168px minmax(0,1fr);gap:32px;border-top:1px solid var(--shared-glass-border);padding:32px clamp(24px,4vw,48px);margin:0;}
+.profile-section-label h2 {font:600 17px/1.5 var(--font-display);margin:0;}
+.profile-section-label > p,.profile-meta {font-size:14px;color:var(--audit-secondary);line-height:1.55;margin:4px 0 0;}
+.profile-section-content {min-width:0;font-size:15px;line-height:1.6;}
+.profile-section-content h3 {font-size:16px;font-weight:600;line-height:1.5;margin:0;}
+.profile-section-content p {margin-top:4px;}
+.profile-bio {max-width:68ch;margin:0!important;white-space:pre-line;text-wrap:pretty;}
+.profile-record + .profile-record {border-top:1px solid var(--shared-glass-border);margin-top:24px;padding-top:24px;}
+.profile-record-heading {display:flex;justify-content:space-between;align-items:flex-start;gap:20px;}
+.profile-record-heading > * {min-width:0;}
+.profile-record-heading > .profile-meta {max-width:40%;text-align:right;flex-shrink:0;}
+.profile-company {margin:4px 0;font-size:15px;}
+.profile-record-description {margin:12px 0 0!important;max-width:68ch;text-wrap:pretty;}
+.profile-skill-list {display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.profile-skill {padding:6px 12px;border:1px solid var(--shared-glass-border);border-radius:var(--fora-radius-pill);font-size:14px;background:oklch(1 0 0 / .04);}
+.profile-add-skill {display:flex;gap:8px;max-width:420px;}
+.profile-add-skill input,.profile-edit-fields :is(input,textarea) {width:100%;min-width:0;min-height:44px;border-radius:12px;border:1px solid var(--shared-glass-border);padding:10px 12px;color:var(--fg);background:oklch(1 0 0 / .05)!important;font:400 16px/1.5 var(--font-body);}
+.profile-add-skill input {flex:1;}
+.profile-action {display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border:1px solid var(--shared-glass-border);border-radius:12px;font:500 14px/1.5 var(--font-body);letter-spacing:.02em;color:var(--fg);background:transparent;text-decoration:none;white-space:normal;}
+.profile-action svg,.profile-contact-link svg {width:18px;height:18px;flex:none;}
+html body .profile-redesigned .profile-action:hover {background:oklch(1 0 0 / .12)!important;color:var(--fg)!important;}
+.profile-action:disabled {opacity:.4;cursor:not-allowed;}
+.profile-language-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;}
+.profile-language {display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.profile-resume-row {display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.profile-resume-row > svg {width:24px;height:24px;flex:none;}
+.profile-resume-copy {flex:1;min-width:140px;overflow-wrap:anywhere;}
+.profile-resume-actions {display:flex;gap:8px;flex-wrap:wrap;}
+.profile-contact-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 32px;}
+.profile-contact-link {display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px;text-decoration:none;color:var(--fg);overflow-wrap:anywhere;}
+.profile-contact-link > :first-child {min-width:0;}
+.profile-contact-link p {margin:4px 0;}
+.profile-contact-link:hover {text-decoration:underline;color:var(--fg);}
+.profile-notice {border-top:1px solid var(--shared-glass-border);padding:16px 24px;margin:0;font-size:14px;}
+.profile-edit-dialog {width:min(620px,calc(100vw - 32px));padding:24px;border-radius:24px;}
+.profile-dialog-heading {display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:8px;}
+.profile-dialog-heading h2 {font:600 24px/1.2 var(--font-display);letter-spacing:-.015em;}
+.profile-edit-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px;}
+.profile-edit-fields label {display:flex;flex-direction:column;gap:8px;font-size:14px;}
+.profile-edit-about {grid-column:1/-1;}
+.profile-dialog-actions {display:flex;justify-content:flex-end;gap:8px;margin-top:24px;}
+html body .profile-redesigned .profile-save,html body .profile-redesigned .profile-save:hover {background:oklch(1 0 0)!important;color:oklch(0 0 0)!important;}
+@media(max-width:1024px){.profile-record-heading {flex-direction:column;gap:4px;}.profile-record-heading > .profile-meta {max-width:none;text-align:left;}.profile-cover {align-items:flex-start;}.profile-contact-grid {grid-template-columns:1fr;}}
+@media(max-width:720px){
+ .profile-scroll {padding:16px 12px 24px;}.profile-unified {border-radius:20px;}
+ .profile-cover {flex-direction:column;padding:24px 20px;gap:20px;}
+ .profile-identity {align-items:flex-start;gap:16px;}.profile-avatar {width:56px;height:56px;font-size:21px;}
+ .profile-header-side {flex-direction:row;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;}
+ .profile-divider-section {grid-template-columns:1fr;gap:16px;padding:24px 20px;}
+ .profile-language-list,.profile-edit-fields {grid-template-columns:1fr;}
+ .profile-resume-actions {width:100%;}.profile-edit-dialog {padding:20px;}
+}
+/* Open profile: career details and credentials share a divided glass container. */
+.profile-compact-grid {display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);}
+.profile-view-content,.profile-quick-details {min-width:0;}
+.profile-quick-details {border-left:1px solid var(--shared-glass-border);}
+.profile-compact-grid .profile-divider-section {grid-template-columns:1fr;gap:12px;padding:24px 28px;}
+.profile-compact-grid .profile-divider-section:first-child {border-top:0;}
+.profile-compact-grid .profile-section-label {display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+.profile-compact-grid .profile-section-label > p {margin:0;}
+.profile-cover {padding:28px;}
+.profile-avatar {width:64px;height:64px;font-size:24px;}
+.profile-cover h1 {font-size:clamp(26px,2.7vw,34px);}
+.profile-kicker {margin-bottom:8px;}
+.profile-compact-grid .profile-contact-grid,.profile-compact-grid .profile-language-list {grid-template-columns:1fr;gap:12px;}
+.profile-compact-grid .profile-contact-link {font-size:14px;}
+.profile-compact-grid .profile-resume-actions {width:100%;}
+.profile-compact-grid .profile-resume-actions .profile-action {padding:8px 10px;}
+.profile-compact-grid .profile-skill-list {gap:6px;}
+.profile-compact-grid .profile-skill {padding:4px 10px;}
+.profile-compact-grid .profile-record + .profile-record {margin-top:16px;padding-top:16px;}
+.profile-compact-grid .profile-record-heading {flex-direction:column;gap:2px;}
+.profile-compact-grid .profile-record-heading > .profile-meta {max-width:100%;text-align:left;}
+@media(max-width:1024px){
+ .profile-compact-grid {grid-template-columns:minmax(0,1fr) minmax(240px,.85fr);}
+ .profile-compact-grid .profile-divider-section {padding:20px;}
+ .profile-cover {padding:24px 20px;}
+ .profile-identity {gap:16px;}
+}
+@media(max-width:720px){
+ .profile-compact-grid {grid-template-columns:1fr;}
+ .profile-quick-details {border-left:0;border-top:1px solid var(--shared-glass-border);}
+ .profile-compact-grid .profile-divider-section {padding:20px;}
+ .profile-cover {padding:24px 20px;}
+}
+/* Suggestions are separate glass chips, retaining the group's existing position. */
+html body .home-empty-state .prompt-option-panel {
+ display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+ width:100%;overflow:visible;padding:0;border:0;border-radius:0;
+ background:transparent!important;box-shadow:none!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+html body .home-empty-state .prompt-option-row,
+html body .home-empty-state .prompt-option-row:last-child {
+ width:100%;max-width:100%;min-height:44px;justify-content:flex-start;
+ padding:8px 14px;border:1px solid var(--shared-glass-border);border-radius:var(--fora-radius-md);
+ background-color:var(--shared-glass-tint);
+ background-image:linear-gradient(145deg,var(--shared-glass-top),var(--shared-glass-bottom));
+ box-shadow:inset 0 1px 0 var(--shared-glass-edge);
+ backdrop-filter:var(--shared-glass-blur);-webkit-backdrop-filter:var(--shared-glass-blur);
+ color:var(--fg);text-align:left;
+}
+html body .home-empty-state .prompt-option-text {
+ font-size:10px;line-height:1.4;letter-spacing:0;color:var(--fg);text-wrap:pretty;
+}
+html body .home-empty-state .prompt-option-row:hover {
+ background-color:oklch(1 0 0 / .15);color:var(--fg);border-color:var(--shared-glass-edge);
+}
+html body .home-empty-state .prompt-option-row:focus-visible {outline:2px solid var(--audit-focus);outline-offset:3px;}
+
+@media(max-width:520px){
+ html body .home-empty-state .prompt-option-row,
+ html body .home-empty-state .prompt-option-row:last-child {padding:7px 12px;}
+}
+@media(max-height:760px) and (min-width:521px){
+ html body .home-empty-state .prompt-option-row,
+ html body .home-empty-state .prompt-option-row:last-child {padding-block:6px;}
+}
+/* Only the application commitment card uses the shared glass material. */
+html body [data-od-id="discover-features"] > .card-commitment {
+ background-color:var(--shared-glass-tint)!important;
+ background-image:linear-gradient(145deg,var(--shared-glass-top),var(--shared-glass-bottom))!important;
+ border-color:var(--shared-glass-border)!important;
+ border-top-color:var(--shared-glass-edge)!important;
+ backdrop-filter:var(--shared-glass-blur)!important;
+ -webkit-backdrop-filter:var(--shared-glass-blur)!important;
+ box-shadow:var(--shared-glass-shadow)!important;
+}
+html body [data-od-id="discover-features"] > .card-commitment::after {content:none!important;}
+html body [data-od-id="discover-features"] > .card-commitment:hover {
+ background-color:oklch(1 0 0 / .15)!important;border-color:var(--shared-glass-edge)!important;color:var(--fg)!important;
+}
+/* Light frosted add-context menus and nested flyouts. */
+html body .context-menu-anchor .context-menu-panel {
+ background-color:oklch(.98 0 0 / .88)!important;
+ background-image:linear-gradient(145deg,oklch(1 0 0 / .55),oklch(1 0 0 / .10))!important;
+ backdrop-filter:blur(36px) saturate(125%)!important;
+ -webkit-backdrop-filter:blur(36px) saturate(125%)!important;
+ border-color:oklch(1 0 0 / .75)!important;
+ box-shadow:0 16px 40px oklch(0 0 0 / .14),inset 0 1px 0 oklch(1 0 0 / .8)!important;
+ color:oklch(.22 0 0)!important;color-scheme:light;
+}
+html body .context-menu-anchor .context-menu-row {color:oklch(.22 0 0)!important;}
+html body .context-menu-anchor .context-menu-row:is(:hover,:focus-visible,.is-open) {
+ background:oklch(0 0 0 / .07);color:oklch(.22 0 0)!important;
+}
+html body .context-menu-anchor :is(.context-menu-meta,.context-menu-chevron) {color:oklch(.42 0 0)!important;}
+html body .context-menu-anchor .context-menu-divider {background:oklch(0 0 0 / .12);}
+html body .context-menu-anchor .context-menu-row:focus-visible {outline:2px solid oklch(.42 0 0);outline-offset:-2px;}
+
+/* All profile details remain visible, with balanced columns on desktop. */
+.profile-compact-grid {border-top:1px solid var(--shared-glass-border);align-items:start;}
+.profile-compact-grid .profile-record-description {margin-top:10px;line-height:1.6;max-width:70ch;}
+.profile-compact-grid .profile-section-label h2 {font-size:18px;line-height:1.4;}
+.profile-compact-grid .profile-bio {line-height:1.6;}
+.profile-quick-details {height:100%;}
+/* Compact open profile: editorial summary above a three-column detail matrix. */
+.profile-redesigned .profile-scroll {padding:16px;}
+.profile-redesigned .profile-unified {max-width:1480px;}
+.profile-redesigned .profile-cover {padding:20px 24px;gap:16px;}
+.profile-redesigned .profile-identity {gap:16px;}
+.profile-redesigned .profile-avatar {width:52px;height:52px;font-size:20px;}
+.profile-redesigned .profile-cover h1 {font-size:26px;margin-bottom:4px;}
+.profile-redesigned .profile-kicker {font-size:10px;margin-bottom:5px;}
+.profile-redesigned .profile-headline {font-size:14px;line-height:1.4;}
+.profile-redesigned .profile-subtitle {font-size:12px;margin-top:3px;}
+.profile-redesigned .profile-header-side {flex-direction:row;align-items:center;gap:12px;}
+.profile-redesigned .profile-compact-grid {grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);align-items:start;}
+.profile-redesigned :is(.profile-view-content,.profile-quick-details) {display:block;min-width:0;height:auto;}
+.profile-redesigned .profile-divider-section {padding:18px 20px;gap:10px;border:0;border-top:1px solid var(--shared-glass-border);min-width:0;}
+.profile-redesigned .profile-section-label h2 {font-size:15px;line-height:1.4;}
+.profile-redesigned .profile-section-content {font-size:13px;line-height:1.5;}
+.profile-redesigned .profile-section-content h3 {font-size:14px;line-height:1.4;}
+.profile-redesigned .profile-meta,.profile-redesigned .profile-section-label>p {font-size:12px;line-height:1.45;}
+.profile-redesigned .profile-record-description,.profile-redesigned .profile-bio {font-size:13px;line-height:1.55;}
+.profile-redesigned .profile-record+.profile-record {margin-top:12px;padding-top:12px;}
+.profile-redesigned .profile-skill {font-size:12px;padding:4px 8px;}
+.profile-redesigned .profile-add-skill {margin-top:12px;gap:6px;}
+.profile-redesigned .profile-add-skill input {font-size:14px;padding:8px 10px;}
+.profile-redesigned .profile-contact-link {font-size:13px;}
+.profile-redesigned .profile-contact-grid {gap:8px;}
+.profile-redesigned .profile-action {font-size:12px;padding:8px 10px;}
+/* Independent section stacks eliminate row-span gaps. */
+.profile-redesigned .profile-quick-details {border-left:1px solid var(--shared-glass-border);}
+.profile-redesigned .profile-divider-section {display:block;}
+.profile-redesigned .profile-section-label {margin-bottom:10px;}
+.profile-redesigned .profile-divider-section:first-child {border-top:0;}
+.profile-redesigned .profile-language {display:flex;align-items:baseline;justify-content:space-between;gap:16px;}
+.profile-redesigned .profile-language-list {display:grid;gap:8px;}
+.profile-redesigned .profile-section-content :is(p,h3) {overflow-wrap:anywhere;}
+@media(min-width:901px){
+ .profile-redesigned [data-od-id="profile-experience"]>.profile-section-content {max-height:none;overflow:visible;}
+ .profile-redesigned [data-od-id="profile-skills"] .profile-skill-list {max-height:112px;overflow-y:auto;}
+ .profile-redesigned [data-od-id="profile-certifications"]>.profile-section-content {max-height:156px;overflow-y:auto;}
+ .profile-redesigned [data-od-id="profile-contact"]>.profile-section-content {max-height:210px;overflow-y:auto;}
+ .profile-redesigned .profile-section-content,.profile-redesigned .profile-skill-list {scrollbar-width:thin;scrollbar-color:var(--shared-glass-edge) transparent;overscroll-behavior:contain;}
+}
+@media(max-width:900px){
+ .profile-redesigned .profile-compact-grid {grid-template-columns:1fr;}
+ .profile-redesigned .profile-quick-details {border-left:0;border-top:1px solid var(--shared-glass-border);}
+ .profile-redesigned .profile-divider-section {padding:16px 20px;}
+ .profile-redesigned .profile-cover {padding:20px 16px;}
+ .profile-redesigned .profile-header-side {flex-direction:column;align-items:flex-start;}
+}
+
+/* Four-line About preview; expansion is explicit and reversible. */
+.profile-redesigned .profile-about-preview {position:relative;}
+.profile-redesigned .profile-about-preview:not(.is-expanded) .profile-bio {
+ display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;
+ overflow:hidden;max-height:6.2em;line-height:1.55;
+ mask-image:linear-gradient(to bottom,black calc(100% - 1.55em),transparent calc(100% - 1.55em)),linear-gradient(to right,black calc(100% - 95px),transparent calc(100% - 95px));
+}
+.profile-redesigned .profile-about-toggle {display:block;margin-top:4px;padding:0;min-height:24px;background:transparent;color:var(--fg);font-size:13px;line-height:1.55;text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+.profile-redesigned .profile-about-preview:not(.is-expanded) .profile-about-toggle {position:absolute;right:0;bottom:0;margin:0;min-height:0;}
+.profile-redesigned .profile-about-toggle:focus-visible {outline:2px solid var(--audit-focus);outline-offset:3px;}
+.profile-redesigned .profile-about-toggle:hover {color:var(--fg);text-decoration-thickness:2px;}
+
+/* Contact column defines the height; Experience fills and scrolls within it. */
+@media(min-width:901px){
+ .profile-redesigned .profile-compact-grid {position:relative;grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start;}
+ .profile-redesigned .profile-quick-details {grid-column:2;}
+ .profile-redesigned .profile-view-content {position:absolute;inset:0 40% 0 0;display:flex;flex-direction:column;min-height:0;height:100%;overflow:hidden;}
+ .profile-redesigned .profile-view-content>[data-od-id="profile-about"],
+ .profile-redesigned .profile-view-content>[data-od-id="profile-skills"] {flex:none;}
+ .profile-redesigned [data-od-id="profile-experience"] {display:flex;flex-direction:column;flex:1;min-height:0;padding-bottom:10px;}
+ .profile-redesigned [data-od-id="profile-experience"] .profile-section-label {flex:none;}
+ .profile-redesigned [data-od-id="profile-experience"]>.profile-section-content {flex:1;min-height:0;max-height:none;height:0;overflow-y:auto;padding-right:8px;}
+ .profile-redesigned [data-od-id="profile-experience"] .profile-record:last-child p:last-child {margin-bottom:0;}
+}

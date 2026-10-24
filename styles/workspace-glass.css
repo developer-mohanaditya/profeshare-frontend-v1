@@ -1,0 +1,20 @@
+/* One material contract for Calendar, Community, and Library. */
+html body :is(
+ .calendar-page.calendar-rethemed .calendar-unified,
+ [data-od-id="community-page"] .workspace,
+ [data-od-id="library-page"] .library-grid
+) {
+ background-color:var(--shared-glass-tint)!important;
+ background-image:linear-gradient(145deg,var(--shared-glass-top),var(--shared-glass-bottom))!important;
+ border-color:var(--shared-glass-border)!important;
+ border-top-color:var(--shared-glass-edge)!important;
+ backdrop-filter:var(--shared-glass-blur)!important;
+ -webkit-backdrop-filter:var(--shared-glass-blur)!important;
+ box-shadow:var(--shared-glass-shadow)!important;
+}
+/* Divided sections share the parent's frost instead of adding another tint. */
+html body [data-od-id="library-page"] .library-grid > .content-panel,
+html body [data-od-id="library-page"] .library-grid > .ai-panel:not(.is-mobile-open) {
+ background:transparent!important;background-image:none!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;
+}

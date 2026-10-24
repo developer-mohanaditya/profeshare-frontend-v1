@@ -1,0 +1,11 @@
+{
+  "name": "profeshare-astryx-glass",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node scripts/build-v170.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

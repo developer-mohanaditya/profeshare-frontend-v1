@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>if(window.parent!==window||new URLSearchParams(location.search).get("embedded")==="1")document.documentElement.setAttribute("data-workspace-embedded","");</script>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Library — Profeshare AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -459,17 +460,21 @@
     @media(max-width:820px){.document-heading strong{max-width:34vw}.document-back{padding:0;width:40px}.document-back span{display:none}.document-view-head{padding:10px 14px}.document-view-port{padding:16px 14px 28px}.document-paper{padding:24px 18px 28px}.document-text{min-height:560px;padding:22px 18px;font-size:12px}}
     @media(prefers-reduced-motion:reduce){.document-back,.document-tool,.document-paper{transition:none}}
   </style>
+<link rel="stylesheet" href="styles/v170-audit.css">
+<link rel="stylesheet" href="styles/library-workspace.css">
+<link rel="stylesheet" href="styles/workspace-glass.css">
 </head>
 <body>
   <div class="library-shell" data-od-id="library-page">
     <div class="library-grid">
       <main class="content-panel" data-od-id="library-content">
-        <div class="content-header"><div class="title-row"><div><h1>Library</h1><p>Keep your research, notes, and conversations in one place.</p></div></div></div>
+        <div class="content-header"><div class="title-row"><div><span class="library-eyebrow">YOUR KNOWLEDGE, CONNECTED</span><h1>Library</h1><p>Keep useful sources close. Turn what you learn into your next step.</p></div></div></div>
         <div class="toolbar" data-od-id="library-filters"><div class="toolbar-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="listSearch" aria-label="Search files" placeholder="Search files" oninput="render()" /></div><div class="filter-cluster" aria-label="Library filters"><label class="filter-control"><select id="typeFilter" class="select-control" aria-label="Filter by format" onchange="render()"><option value="all">All types</option><option value="pdf">PDF</option><option value="article">Article</option><option value="video">Video</option></select></label><label class="filter-control"><select id="statusFilter" class="select-control" aria-label="Filter by progress" onchange="render()"><option value="all">All progress</option><option value="Unread">Unread</option><option value="Reading">Reading</option><option value="Read">Read</option></select></label><label class="filter-control"><select id="sortSelect" class="select-control" aria-label="Sort files" onchange="render()"><option value="recent">Recent first</option><option value="alpha">A–Z</option><option value="status">By progress</option></select></label></div><button class="icon-btn upload-action" aria-label="Upload source: PDF, DOCS, or PPT" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span>Upload</span></button><input id="fileInput" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" hidden onchange="handleUpload(this)" /></div>
+        <div class="library-collection-heading"><h2>All sources</h2><span id="libraryResultCount" role="status"></span></div>
         <div id="sourceList" class="source-list" aria-live="polite"></div>
         <section id="documentView" class="document-view" data-od-id="library-document-view" aria-label="PDF document viewer" hidden></section>
       </main>
-      <aside id="aiPanel" class="ai-panel" data-od-id="library-ai-panel"><div class="ai-header"><button class="icon-btn" aria-label="Toggle AI panel" onclick="toggleAI()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16"/></svg></button><strong>Profeshare AI</strong><span class="spacer"></span><button class="icon-btn" aria-label="New chat" onclick="newChat()">+</button><button class="icon-btn" aria-label="Chat history">◷</button></div><div class="ai-content"><div class="composer-wrap"><section class="ai-section"><div class="ai-label">Suggested questions</div><div id="suggestions" class="suggestions"></div></section><div class="composer"><div id="contextRow" class="context-row"></div><textarea id="chatInput" rows="2" placeholder="Ask this context a question…" oninput="updateComposer()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea><div class="composer-bottom composer-actions"><button class="icon-btn" aria-label="Add context" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><div class="composer-actions-right"><button class="icon-btn voice-btn" aria-label="Voice input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg></button><button id="sendBtn" class="send-btn" aria-label="Send message" onclick="sendChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-4 14-3-6-7-1Z"/></svg></button></div></div></div></div></div></aside>
+      <aside id="aiPanel" class="ai-panel" data-od-id="library-ai-panel"><div class="ai-header"><button class="icon-btn" aria-label="Toggle AI panel" onclick="toggleAI()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16"/></svg></button><strong>Source companion</strong><span class="spacer"></span><button class="icon-btn" aria-label="New chat" onclick="newChat()">+</button><button class="icon-btn" aria-label="Chat history" hidden>◷</button></div><div class="ai-content"><div class="composer-wrap"><section class="ai-section"><div class="ai-label">Explore your source</div><p class="library-ai-intro">Choose a source, then take a question into your AI workspace.</p><div id="suggestions" class="suggestions"></div></section><div class="composer"><div id="contextRow" class="context-row"></div><textarea id="chatInput" rows="2" placeholder="Ask this context a question…" oninput="updateComposer()" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea><div class="composer-bottom composer-actions"><button class="icon-btn" aria-label="Add context" onclick="document.getElementById('fileInput').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><div class="composer-actions-right"><button class="icon-btn voice-btn" aria-label="Voice input" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg></button><button id="sendBtn" class="send-btn" aria-label="Send message" onclick="sendChat()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-4 14-3-6-7-1Z"/></svg></button></div></div></div></div></div></aside>
       <section id="detailView" class="detail-view" data-od-id="library-detail-view" aria-live="polite"></section>
       <button id="mobileAI" class="mobile-ai-toggle icon-btn" aria-label="Open AI panel" onclick="toggleMobileAI()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></button>
     </div>
@@ -563,5 +568,7 @@
     const typeFilter=document.getElementById('typeFilter');typeFilter.innerHTML='<option value="all">All formats</option><option value="pdf">PDF</option><option value="docs">Docs</option><option value="ppt">PPT Slides</option>';typeFilter.onchange=render;
     state.tab='Sources';document.getElementById('listSearch').placeholder='Search files';render();updateAI();
   </script>
+<script src="scripts/library-workspace.js"></script>
+<script src="scripts/v170-accessibility.js"></script>
 </body>
 </html>
